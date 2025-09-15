@@ -24,13 +24,9 @@ body{
 .hidden{display:none!important}
 
 /* HUD */
-.hud{
-  position:sticky; top:0; z-index:30;
-  display:flex; justify-content:center;
-}
+.hud{ position:sticky; top:0; z-index:30; display:flex; justify-content:center; }
 .badge{
-  margin-top:12px;
-  font-size:14px; font-weight:900;
+  margin-top:12px; font-size:14px; font-weight:900;
   color:var(--neon);
   padding:10px 20px; border-radius:12px;
   background:rgba(0,0,0,.6);
@@ -40,30 +36,16 @@ body{
 
 /* Intro */
 .hero{text-align:center; margin-top:18vh;}
-.hero h1{
-  font-size:28px;
-  color:var(--neon);
-  text-shadow:0 0 12px var(--neon),0 0 24px rgba(255,43,77,.6);
-}
+.hero h1{ font-size:28px; color:var(--neon); text-shadow:0 0 12px var(--neon),0 0 24px rgba(255,43,77,.6);}
 .box-msg{
-  margin:28px auto; max-width:420px;
-  padding:20px;
-  border:1px solid var(--neon);
-  border-radius:12px;
-  background:rgba(0,0,0,.8);
-  color:#ffe8ed; font-size:16px;
-  text-align:center;
+  margin:28px auto; max-width:420px; padding:20px;
+  border:1px solid var(--neon); border-radius:12px;
+  background:rgba(0,0,0,.8); text-align:center;
 }
 .btn-start{
-  background:var(--neon);
-  color:#000;
-  font-weight:900;
-  font-size:16px;
-  border:none;
-  border-radius:12px;
-  padding:18px 32px;
-  cursor:pointer;
-  box-shadow:0 0 18px var(--neon),0 0 42px rgba(255,43,77,.6);
+  background:var(--neon); color:#000; font-weight:900;
+  border:none; border-radius:12px; padding:18px 32px;
+  cursor:pointer; box-shadow:0 0 18px var(--neon),0 0 42px rgba(255,43,77,.6);
 }
 .btn-start:hover{filter:brightness(1.1);}
 
@@ -72,35 +54,17 @@ body{
 .glass{ background:var(--card); border:1px solid #470c15; border-radius:20px; padding:22px; }
 .quiz-title{
   background:var(--neon); color:#000;
-  display:inline-block;
-  padding:8px 14px;
-  border-radius:10px;
-  font-weight:900;
-  margin-bottom:12px;
+  display:inline-block; padding:8px 14px;
+  border-radius:10px; font-weight:900; margin-bottom:12px;
 }
-.progress{
-  height:8px;
-  background:#222;
-  border-radius:6px;
-  margin:10px 0 20px;
-  overflow:hidden;
-}
-.progress > div{
-  height:100%; width:0%;
-  background:linear-gradient(90deg,var(--neon),var(--neon2));
-  transition:width .3s ease;
-  box-shadow:0 0 10px var(--neon);
-}
+.progress{ height:8px; background:#222; border-radius:6px; margin:10px 0 20px; overflow:hidden; }
+.progress > div{ height:100%; width:0%; background:linear-gradient(90deg,var(--neon),var(--neon2)); transition:width .3s ease; box-shadow:0 0 10px var(--neon);}
 .question{ text-align:center; font-size:20px; margin-bottom:20px; color:var(--neon); }
 .answers{ display:grid; gap:14px; margin-top:16px }
 .answer{
-  padding:14px; border-radius:12px;
-  border:1px solid var(--neon);
-  background:rgba(0,0,0,.85);
-  color:var(--neon);
-  font-weight:600;
-  cursor:pointer;
-  text-align:center;
+  padding:14px; border-radius:12px; border:1px solid var(--neon);
+  background:rgba(0,0,0,.85); color:var(--neon);
+  font-weight:600; cursor:pointer; text-align:center;
   box-shadow:0 0 10px rgba(255,43,77,.4);
 }
 .answer:hover{background:var(--neon); color:#000;}
@@ -150,8 +114,12 @@ const QUESTIONS=[
     title:"DIAGNÓSTICO PSICOLÓGICO - 2/4",
     q:"Quando algo dá errado, qual sua reação?",
     a:["Desisto rápido","Tento novamente","Busco ajuda","Transformo em aprendizado"]
+  },
+  {
+    title:"DIAGNÓSTICO PSICOLÓGICO - 3/4",
+    q:"O que você sente ao ver pessoas comuns faturando mais que você?",
+    a:["Não me abala","Incomoda um pouco","Revolta total","Ódio absoluto 🔻"]
   }
-  // ➝ Você pode adicionar mais etapas aqui
 ];
 
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
@@ -198,7 +166,6 @@ document.addEventListener('click', e=>{
     xp +=50;
     if(xp>=lvl*100) lvl++;
     moneySound.currentTime=0; moneySound.play();
-    // atualiza barra de progresso
     const bar=$(`#bar${step}`); if(bar) bar.style.width="100%";
     showStep(step+1);
   }
@@ -225,6 +192,7 @@ draw();
 </script>
 </body>
 </html>
+>
 
 
 
