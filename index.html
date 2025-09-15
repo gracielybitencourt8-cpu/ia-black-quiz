@@ -1,4 +1,8 @@
-<!doctype html>
+import zipfile
+import os
+
+# Caminho do arquivo HTML final
+html_code = """<!doctype html>
 <html lang="pt-br">
 <head>
   <meta charset="utf-8" />
@@ -86,11 +90,17 @@
 
     // Quiz
     const QUESTIONS=[
+      // Diagnóstico Psicológico
       {title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]}
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
+
+      // Micro-Comprometimento
+      {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você, mesmo sem entender toda a estratégia por trás?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
+      {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas de Low Ticket por dia no automático, você toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
     ];
+
     const quiz=document.getElementById("quiz"); let step=0,xp=0,lvl=1;
 
     function addXP(n){ xp+=n; if(xp>=lvl*100){lvl++;} document.getElementById("xp").textContent=xp+" XP"; document.getElementById("lvl").textContent="LVL "+lvl; }
@@ -144,7 +154,21 @@
     function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
   </script>
 </body>
-</html>
+</html>"""
+
+# Criar um arquivo index.html
+html_path = "/mnt/data/index.html"
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_code)
+
+# Compactar em .zip
+zip_path = "/mnt/data/protocolo-black.zip"
+with zipfile.ZipFile(zip_path, 'w') as zipf:
+    zipf.write(html_path, arcname="index.html")
+
+zip_path
+
+
 
 
 
