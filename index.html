@@ -197,6 +197,162 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análise Psicológica • Black System</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: monospace;
+      background: #000;
+      color: #ff2b4d; /* vermelho neon */
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .active { display: flex; }
+
+    h1 {
+      font-size: 20px;
+      text-shadow: 0 0 10px #ff2b4d, 0 0 20px #ff2b4d;
+      margin-bottom: 20px;
+    }
+
+    .progress {
+      width: 80%;
+      height: 20px;
+      background: #111;
+      border: 1px solid #ff2b4d;
+      box-shadow: 0 0 10px #ff2b4d;
+      margin: 20px 0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #ff2b4d;
+      box-shadow: 0 0 15px #ff2b4d, 0 0 30px #ff2b4d;
+      transition: width 0.3s;
+    }
+
+    button {
+      background: transparent;
+      border: 2px solid #ff2b4d;
+      color: #fff;
+      padding: 12px 20px;
+      margin-top: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      border-radius: 4px;
+      box-shadow: 0 0 15px #ff2b4d;
+    }
+
+    button:hover {
+      background: #ff2b4d;
+      color: #000;
+      box-shadow: 0 0 20px #ff2b4d, 0 0 40px #ff2b4d;
+    }
+
+    .bonus-box {
+      border: 1px solid #ff2b4d;
+      padding: 20px;
+      box-shadow: 0 0 15px #ff2b4d;
+      margin: 20px;
+    }
+
+    .bonus-box strong {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Etapa 1 -->
+  <div id="step1" class="container active">
+    <h1>🔍 ANÁLISE DE PERFIL PSICOLÓGICO</h1>
+    <p>Escaneando padrões comportamentais...</p>
+    <div class="progress">
+      <div class="progress-bar" id="bar1"></div>
+    </div>
+    <button onclick="startAnalysis()">Iniciar Análise Psicológica</button>
+  </div>
+
+  <!-- Etapa 2 -->
+  <div id="step2" class="container">
+    <h1>🔍 ANÁLISE DE PERFIL PSICOLÓGICO</h1>
+    <p id="statusText">Iniciando análise...</p>
+    <div class="progress">
+      <div class="progress-bar" id="bar2"></div>
+    </div>
+  </div>
+
+  <!-- Etapa 3 -->
+  <div id="step3" class="container">
+    <h1>🎁 BÔNUS DESBLOQUEADO</h1>
+    <div class="bonus-box">
+      <p>Ao se tornar aluno, você garante <strong>1 Produto Validado BLACK</strong> para rodar no tráfego.</p>
+      <p>💣 Produto Low Ticket, com criativo e copy prontos.<br>
+         ✔ Ideal para acelerar teu processo.<br>
+         ✔ Só colar, subir e escalar.</p>
+      <p>⚠ Esse bônus é exclusivo para alunos ativos e será liberado dentro da Área de Membros.</p>
+    </div>
+    <button>Quero acesso com o bônus</button>
+  </div>
+
+  <script>
+    const step1 = document.getElementById("step1");
+    const step2 = document.getElementById("step2");
+    const step3 = document.getElementById("step3");
+    const bar2 = document.getElementById("bar2");
+    const statusText = document.getElementById("statusText");
+
+    function startAnalysis() {
+      step1.classList.remove("active");
+      step2.classList.add("active");
+
+      let progress = 0;
+      const stages = [
+        "Detectando nível de agressividade...",
+        "Mapeando traços de liderança...",
+        "Escaneando resiliência mental...",
+        "Calculando índice de risco...",
+        "✅ Análise concluída."
+      ];
+
+      const interval = setInterval(() => {
+        if (progress < 100) {
+          progress += 5;
+          bar2.style.width = progress + "%";
+          if (progress < 100) {
+            statusText.textContent = stages[Math.floor(progress / 25)];
+          }
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            step2.classList.remove("active");
+            step3.classList.add("active");
+          }, 1000);
+        }
+      }, 300);
+    }
+  </script>
+</body>
+</html>
 
 
 
