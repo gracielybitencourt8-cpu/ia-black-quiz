@@ -20,6 +20,7 @@
     .answer{padding:14px;border-radius:12px;border:1px solid var(--neon2);background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;cursor:pointer;box-shadow:0 0 12px var(--neon);}
     .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
     .hidden{display:none!important}
+    blockquote{border:1px solid var(--neon2);border-radius:12px;padding:18px;margin:16px 0;font-style:italic;color:#ffb3c1;}
   </style>
 </head>
 <body>
@@ -39,9 +40,16 @@
     <!-- Quiz -->
     <form id="quiz" class="glass hidden"></form>
 
-    <!-- Produto -->
+    <!-- Apresentação -->
     <section id="product" class="glass hidden">
       <h2 style="color:var(--neon);text-align:center;">APRESENTAÇÃO DO PRODUTO</h2>
+      <div style="border:1px solid var(--neon);border-radius:12px;padding:18px;margin-bottom:22px;text-align:center;">
+        [BRIEFING PSICOLÓGICO INICIADO]<br><br>
+        O Protocolo Black foi projetado para transformar o jogo do Low Ticket.<br>
+        Esqueça depender de altos valores — aqui a escala é ilimitada.<br>
+        A IA trabalha no oculto, capturando dezenas de clientes por dia,<br>
+        sem bloqueios, sem esforço manual e sem margem para fracasso.
+      </div>
       <div class="feature">⚡ Lança ofertas de baixo valor que giram sozinhas no automático</div>
       <div class="feature">🎯 Escala no volume: dezenas de vendas por dia sem travar a operação</div>
       <div class="feature">🧠 Cria copys persuasivas que transformam curiosos em compradores imediatos</div>
@@ -55,6 +63,7 @@
     <!-- Bônus -->
     <section id="bonus" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">BÔNUS DESBLOQUEADO</h2>
+      <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">[CÓDIGO LOW TICKET ATIVADO]</p>
       <p style="text-align:center; color:#ffb3c1; margin-bottom:30px;">
         Se chegar até o fim, você desbloqueia um pacote secreto que transforma ofertas baratas em escala diária.
       </p>
@@ -74,6 +83,9 @@
       <p style="text-align:center; color:#ff6666; font-weight:700; margin-bottom:24px;">
         Você está pronto para operar no Low Ticket como um BLACK, ou vai continuar sendo Nutella?
       </p>
+      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
+        ⚠️ Se não escolher <strong>"SOU BLACK"</strong>, o sistema bloqueia seu acesso.
+      </p>
       <div class="answers">
         <button type="button" class="answer">Prefiro continuar Nutella</button>
         <button type="button" class="answer">Ainda não tenho certeza se mereço</button>
@@ -83,26 +95,27 @@
     </section>
 
     <!-- Depoimentos -->
-    <section id="testimonials" class="glass hidden">
-      <h2 style="text-align:center;color:var(--neon);margin-bottom:20px;">DEPOIMENTOS DA DEEP WEB</h2>
-
-      <div class="glass" style="margin-bottom:16px">
-        <p>"Antes eu achava que low ticket era esmola. Depois do Protocolo Black, cada micro-venda virou uma enxurrada de caixa diário."</p>
-        <p style="color:#ffb3c1;">— Operador Anônimo #013</p>
+    <section id="depoimentos" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">DEPOIMENTOS DA DEEP WEB</h2>
+      <blockquote>"Depois que ativei o Protocolo Black, o Low Ticket virou uma máquina de escala infinita."<br><br>- Operador Anônimo #011</blockquote>
+      <blockquote>"Antes eu corria atrás de likes, agora eu corro atrás de PIX todo dia."<br><br>- Operador Anônimo #024</blockquote>
+      <blockquote>"Low Ticket no Black não é sobre vender, é sobre dominar o mercado sem ser visto."<br><br>- Operador Anônimo #037</blockquote>
+      <div style="text-align:center; margin-top:28px;">
+        <button type="button" class="btn" id="continuar-depoimentos">CONTINUAR PROTOCOLO</button>
       </div>
+    </section>
 
-      <div class="glass" style="margin-bottom:16px">
-        <p>"Não é sobre vender barato, é sobre vender em massa. Enquanto os Nutella brigam por uma venda, eu fecho dezenas no piloto automático."</p>
-        <p style="color:#ffb3c1;">— Operador Anônimo #042</p>
-      </div>
-
-      <div class="glass" style="margin-bottom:16px">
-        <p>"Low ticket sem sistema é esmola. Com a IA Black, virou uma máquina que imprime leads e vendas 24/7."</p>
-        <p style="color:#ffb3c1;">— Operador Anônimo #099</p>
-      </div>
-
-      <div style="text-align:center;margin-top:20px;">
-        <button class="btn" onclick="nextLead()">CONTINUAR PROTOCOLO</button>
+    <!-- Confirmação Final -->
+    <section id="final" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 1/2</h2>
+      <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
+        👉 Você vai continuar mendigando likes ou vai ativar um sistema que coloca clientes no seu bolso todo dia?
+      </p>
+      <div class="answers">
+        <button type="button" class="answer">Prefiro likes de vaidade</button>
+        <button type="button" class="answer">Ainda estou na dúvida</button>
+        <button type="button" class="answer">Quero o acesso vitalício agora</button>
+        <button type="button" class="answer" id="final-black">DOMINAÇÃO TOTAL — clientes em escala diária</button>
       </div>
     </section>
 
@@ -153,17 +166,14 @@
       }
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
-      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("testimonials").classList.remove("hidden");addXP(100);}
+      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
+      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
+      if(e.target.id==="final-black"){document.getElementById("final").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
       if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
         alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
       if(e.target.id==="finish"){alert("Enviar ao checkout...");}
     });
-
-    function nextLead(){
-      document.getElementById("testimonials").classList.add("hidden");
-      document.getElementById("lead").classList.remove("hidden");
-    }
 
     // Matrix vermelho
     const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let w,h,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
