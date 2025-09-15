@@ -6,37 +6,25 @@
   <title>Protocolo Black • Diagnóstico</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --neon:#ff2b4d;
-      --neon2:#ff4d6d;
-      --bg:#000;
-    }
+    :root{--neon:#ff2b4d;--neon2:#ff4d6d;--bg:#000;}
     *{box-sizing:border-box}
-    body{
-      margin:0; font-family:"Orbitron",sans-serif;
-      background:#000; color:#ffe8ed;
-      overflow-x:hidden;
-    }
-    #matrix{position:fixed; inset:0; z-index:-2; background:#000;}
-    .hud{position:sticky; top:0; z-index:30; background:rgba(0,0,0,.6); padding:8px 14px; display:flex; justify-content:center; font-size:14px; color:var(--neon); border-bottom:1px solid var(--neon2);}
-    .wrap{max-width:800px; margin:0 auto; padding:20px;}
-    .glass{background:rgba(0,0,0,.65); border:1px solid var(--neon2); border-radius:16px; padding:24px; margin:24px auto;}
-    .hero{text-align:center; margin-top:20vh;}
-    .hero h1{color:var(--neon); font-size:32px; text-shadow:0 0 12px var(--neon);}
-    .btn{background:linear-gradient(90deg,var(--neon),var(--neon2)); color:#000; font-weight:900; border:none; border-radius:16px; padding:14px 24px; margin-top:20px; cursor:pointer; box-shadow:0 0 20px var(--neon);}
-    .answers{display:grid; gap:12px; margin-top:16px;}
-    .answer{padding:14px; border-radius:12px; border:1px solid var(--neon2); background:linear-gradient(90deg,var(--neon),var(--neon2)); color:#000; font-weight:900; cursor:pointer; box-shadow:0 0 12px var(--neon);}
-    .answer:hover{filter:brightness(1.2);}
-    .feature{margin:12px 0; padding:14px; border:1px solid var(--neon2); border-radius:12px; text-align:center;}
+    body{margin:0;font-family:"Orbitron",sans-serif;background:#000;color:#ffe8ed;overflow-x:hidden;}
+    #matrix{position:fixed;inset:0;z-index:-2;background:#000;}
+    .hud{position:sticky;top:0;z-index:30;background:rgba(0,0,0,.6);padding:8px 14px;display:flex;justify-content:center;font-size:14px;color:var(--neon);border-bottom:1px solid var(--neon2);}
+    .wrap{max-width:800px;margin:0 auto;padding:20px;}
+    .glass{background:rgba(0,0,0,.65);border:1px solid var(--neon2);border-radius:16px;padding:24px;margin:24px auto;}
+    .hero{text-align:center;margin-top:20vh;}
+    .hero h1{color:var(--neon);font-size:32px;text-shadow:0 0 12px var(--neon);}
+    .btn{background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;border:none;border-radius:16px;padding:14px 24px;margin-top:20px;cursor:pointer;box-shadow:0 0 20px var(--neon);}
+    .answers{display:grid;gap:12px;margin-top:16px;}
+    .answer{padding:14px;border-radius:12px;border:1px solid var(--neon2);background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;cursor:pointer;box-shadow:0 0 12px var(--neon);}
+    .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
     .hidden{display:none!important}
   </style>
 </head>
 <body>
   <canvas id="matrix"></canvas>
-
-  <div class="hud">
-    <span id="xp">0 XP</span> | <span id="lvl">LVL 1</span>
-  </div>
+  <div class="hud"><span id="xp">0 XP</span> | <span id="lvl">LVL 1</span></div>
 
   <div class="wrap">
     <!-- Intro -->
@@ -73,12 +61,8 @@
 
     <!-- Bônus -->
     <section id="bonus" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">
-        BÔNUS DESBLOQUEADO
-      </h2>
-      <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">
-        [CÓDIGO LOW TICKET ATIVADO]
-      </p>
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">BÔNUS DESBLOQUEADO</h2>
+      <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">[CÓDIGO LOW TICKET ATIVADO]</p>
       <p style="text-align:center; color:#ffb3c1; margin-bottom:30px;">
         Se chegar até o fim, você desbloqueia um pacote secreto que transforma ofertas baratas em escala diária.
       </p>
@@ -88,9 +72,24 @@
       <div class="feature">🛡️ Campanhas Blindadas</div>
       <div class="feature">👑 Comunidade Low Ticket Black</div>
       <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="continue-system">
-          CONTINUAR PARA O SISTEMA
-        </button>
+        <button type="button" class="btn" id="continue-elite">CONTINUAR PARA O FILTRO</button>
+      </div>
+    </section>
+
+    <!-- Filtro de Elite -->
+    <section id="elite" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">FILTRO DE ELITE</h2>
+      <p style="text-align:center; color:#ff6666; font-weight:700; margin-bottom:24px;">
+        Você está pronto para operar no Low Ticket como um BLACK, ou vai continuar sendo Nutella?
+      </p>
+      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
+        ⚠️ Se não escolher <strong>"SOU BLACK"</strong>, o sistema bloqueia seu acesso.
+      </p>
+      <div class="answers">
+        <button type="button" class="answer">Prefiro continuar Nutella</button>
+        <button type="button" class="answer">Ainda não tenho certeza se mereço</button>
+        <button type="button" class="answer">Talvez um dia eu esteja pronto</button>
+        <button type="button" class="answer" id="sou-black">SOU BLACK — quero destravar o sistema agora</button>
       </div>
     </section>
 
@@ -104,80 +103,58 @@
   </div>
 
   <script>
-    // Som
     const moneySound=new Audio("https://www.myinstants.com/media/sounds/cash-register-cha-ching.mp3");
 
-    // Perguntas
     const QUESTIONS=[
-      // Diagnóstico Psicológico
       {title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
-
-      // Micro-Comprometimento
       {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você, mesmo sem entender toda a estratégia por trás?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
       {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas de Low Ticket por dia no automático, você toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
     ];
 
     const quiz=document.getElementById("quiz"); let step=0,xp=0,lvl=1;
-
-    function addXP(n){ xp+=n; if(xp>=lvl*100){lvl++;} document.getElementById("xp").textContent=xp+" XP"; document.getElementById("lvl").textContent="LVL "+lvl; }
+    function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
 
     function renderQuiz(){
       quiz.innerHTML="";
       QUESTIONS.forEach((q,i)=>{
         const s=document.createElement("section");
-        s.dataset.step=i;
-        s.className=i===0?"":"hidden";
+        s.dataset.step=i;s.className=i===0?"":"hidden";
         s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3>
         <p style="text-align:center;margin:14px 0 20px">${q.q}</p>
-        <div class="answers">
-          ${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}
-        </div>`;
+        <div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;
         quiz.appendChild(s);
       });
     }
 
-    document.getElementById("start").onclick=()=>{
-      document.getElementById("intro").classList.add("hidden");
-      quiz.classList.remove("hidden");
-      renderQuiz();
-    };
+    document.getElementById("start").onclick=()=>{document.getElementById("intro").classList.add("hidden");quiz.classList.remove("hidden");renderQuiz();};
 
     document.addEventListener("click",e=>{
-      if(e.target.classList.contains("answer")){
-        moneySound.play();
-        addXP(50);
-        quiz.children[step].classList.add("hidden");
-        step++;
-        if(step<QUESTIONS.length){
-          quiz.children[step].classList.remove("hidden");
-        }else{
-          quiz.classList.add("hidden");
-          document.getElementById("product").classList.remove("hidden");
-        }
+      if(e.target.classList.contains("answer") && e.target.closest("#quiz")){
+        moneySound.play();addXP(50);
+        quiz.children[step].classList.add("hidden");step++;
+        if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}
+        else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}
       }
-      if(e.target.id==="continue"){
-        document.getElementById("product").classList.add("hidden");
-        document.getElementById("bonus").classList.remove("hidden");
+      if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
+      if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
+      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");addXP(100);}
+      if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
+        alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
-      if(e.target.id==="continue-system"){
-        document.getElementById("bonus").classList.add("hidden");
-        document.getElementById("lead").classList.remove("hidden");
-      }
-      if(e.target.id==="finish"){
-        alert("Enviar ao checkout...");
-      }
+      if(e.target.id==="finish"){alert("Enviar ao checkout...");}
     });
 
     // Matrix vermelho
-    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d"); let w,h,cols,drops; const fontSize=16; const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
-    function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/fontSize);drops=Array(cols).fill(1);} window.addEventListener("resize",resize); resize();
+    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let w,h,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
+    function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
     function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
   </script>
 </body>
 </html>
+
 
 
 
