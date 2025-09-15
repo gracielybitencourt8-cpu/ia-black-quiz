@@ -135,12 +135,28 @@
 
     <!-- Final Low Ticket -->
     <section id="lowticket" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon);">✅ PROTOCOLO LOW TICKET INICIADO</h2>
-      <p style="text-align:center; margin:16px 0 24px; color:#ffb3c1;">
-        O Sistema foi ativado. A partir de agora, o fluxo de vendas Low Ticket roda no oculto — sem travar, sem parar, sem limites.
+      <h2 style="text-align:center; color:var(--neon); font-size:34px; text-shadow:0 0 16px var(--neon); margin-bottom:14px;">
+        🚀 PROTOCOLO LOW TICKET INICIADO
+      </h2>
+      <p style="text-align:center; font-size:18px; color:#ffb3c1; margin:0 0 24px; font-weight:600;">
+        Tu não desbloqueou um curso qualquer. Tu soltou o mecanismo que faltava pra dominar o jogo do <strong>Low Ticket</strong>.<br>
+        Esquece likes, esquece promessas vazias. Aqui é venda todo dia, no oculto — sem bloqueios, sem rosto, sem misericórdia.
       </p>
-      <div style="text-align:center;">
-        <button id="finish" type="button" class="btn">LIBERAR ACESSO</button>
+      
+      <div class="feature">⚡ Dominar a arte de montar funis de ticket baixo que giram sozinhos e esmagam objeções.</div>
+      <div class="feature">🎯 Infiltrar campanhas de baixo valor no leilão sem travar e sem bloqueio.</div>
+      <div class="feature">🧠 Criar copys agressivas que fazem o lead comprar no susto.</div>
+      <div class="feature">⏰ Vender 24/7 com ofertas de baixo valor, mas em alto volume.</div>
+
+      <h3 style="text-align:center; color:var(--neon); margin:30px 0 14px;">📂 ARQUIVOS SUJOS DO LOW TICKET</h3>
+      <div class="feature">🧠 Arquivo 01: 3 Prompts de Venda Instantânea (Low Ticket)</div>
+      <div class="feature">🔥 Arquivo 02: Blueprint da Copy Agressiva de Ticket Baixo</div>
+      <div class="feature">📎 Arquivo 03: Template de Anúncio Hipnótico para ofertas baratas</div>
+
+      <div style="text-align:center; margin-top:32px;">
+        <button id="finish" type="button" class="btn" style="width:100%; font-size:18px; padding:18px;">
+          👉 LIBERAR O ACESSO ILEGAL AO LOW TICKET AGORA
+        </button>
       </div>
     </section>
   </div>
@@ -203,7 +219,7 @@
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
       if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final1").classList.remove("hidden");}
       if(e.target.id==="final-black"){document.getElementById("final1").classList.add("hidden");document.getElementById("final2").classList.remove("hidden");}
-      // Agora qualquer resposta da Confirmação Final 2/2 leva ao Low Ticket
+      // qualquer clique leva ao final Low Ticket
       if(e.target.closest("#final2") && e.target.classList.contains("answer")){
         document.getElementById("final2").classList.add("hidden");
         document.getElementById("lowticket").classList.remove("hidden");
@@ -215,10 +231,27 @@
     // Matrix vermelho
     const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let w,h,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
     function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
-    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
+    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";…continuando o código completo:  
+
+```html
+    function draw(){
+      ctx.fillStyle="rgba(0,0,0,0.08)";
+      ctx.fillRect(0,0,w,h);
+      ctx.fillStyle="#ff1a40";
+      ctx.font=fontSize+"px monospace";
+      for(let i=0;i<drops.length;i++){
+        const text=glyphs[Math.floor(Math.random()*glyphs.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+        if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;
+        drops[i]++;
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
   </script>
 </body>
 </html>
+
 
 
 
