@@ -20,7 +20,7 @@
     .answer{padding:14px;border-radius:12px;border:1px solid var(--neon2);background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;cursor:pointer;box-shadow:0 0 12px var(--neon);}
     .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
     .hidden{display:none!important}
-    blockquote{border:1px solid var(--neon2);border-radius:12px;padding:18px;margin:16px 0;font-style:italic;color:#ffb3c1;}
+    .depo{margin:18px 0;padding:18px;border:1px solid var(--neon2);border-radius:12px;font-size:15px;text-align:center;color:#ffccd2;}
   </style>
 </head>
 <body>
@@ -45,16 +45,15 @@
       <h2 style="color:var(--neon);text-align:center;">APRESENTAÇÃO DO PRODUTO</h2>
       <div style="border:1px solid var(--neon);border-radius:12px;padding:18px;margin-bottom:22px;text-align:center;">
         [BRIEFING PSICOLÓGICO INICIADO]<br><br>
-        O Protocolo Black foi projetado para transformar o jogo do Low Ticket.<br>
-        Esqueça depender de altos valores — aqui a escala é ilimitada.<br>
-        A IA trabalha no oculto, capturando dezenas de clientes por dia,<br>
-        sem bloqueios, sem esforço manual e sem margem para fracasso.
+        O Protocolo Black foi projetado para dominar o jogo do Low Ticket.<br>
+        Aqui não se trata de altos valores — e sim de escala.<br>
+        A IA captura clientes todos os dias, sem bloqueios e sem esforço manual.
       </div>
-      <div class="feature">⚡ Lança ofertas de baixo valor que giram sozinhas no automático</div>
-      <div class="feature">🎯 Escala no volume: dezenas de vendas por dia sem travar a operação</div>
-      <div class="feature">🧠 Cria copys persuasivas que transformam curiosos em compradores imediatos</div>
-      <div class="feature">🛡️ Opera no oculto: sem bloqueio, sem exposição, sem depender de sorte</div>
-      <div class="feature">⏰ Vendas 24/7 no piloto automático com ticket baixo e alto giro</div>
+      <div class="feature">⚡ Ofertas de baixo valor que giram sozinhas</div>
+      <div class="feature">🎯 Escala de dezenas de vendas por dia</div>
+      <div class="feature">🧠 Copys que transformam curiosos em compradores</div>
+      <div class="feature">🛡️ Operação oculta sem bloqueios</div>
+      <div class="feature">⏰ Vendas 24/7 no piloto automático</div>
       <div style="text-align:center;margin-top:20px;">
         <button id="continue" type="button" class="btn">CONTINUAR PROTOCOLO</button>
       </div>
@@ -65,13 +64,13 @@
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">BÔNUS DESBLOQUEADO</h2>
       <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">[CÓDIGO LOW TICKET ATIVADO]</p>
       <p style="text-align:center; color:#ffb3c1; margin-bottom:30px;">
-        Se chegar até o fim, você desbloqueia um pacote secreto que transforma ofertas baratas em escala diária.
+        Ao finalizar, você desbloqueia recursos secretos para escalar ofertas baratas todos os dias.
       </p>
-      <div class="feature">⚡ Prompts de Conversão (Low Ticket)</div>
-      <div class="feature">🎯 Funil Automático de Escala</div>
-      <div class="feature">🧠 Copy Hipnótica</div>
-      <div class="feature">🛡️ Campanhas Blindadas</div>
-      <div class="feature">👑 Comunidade Low Ticket Black</div>
+      <div class="feature">⚡ Prompts prontos para conversão</div>
+      <div class="feature">🎯 Funil automático de vendas</div>
+      <div class="feature">🧠 Copy hipnótica</div>
+      <div class="feature">🛡️ Campanhas blindadas</div>
+      <div class="feature">👑 Comunidade Black Low Ticket</div>
       <div style="text-align:center; margin-top:28px;">
         <button type="button" class="btn" id="continue-elite">CONTINUAR PARA O FILTRO</button>
       </div>
@@ -81,47 +80,57 @@
     <section id="elite" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">FILTRO DE ELITE</h2>
       <p style="text-align:center; color:#ff6666; font-weight:700; margin-bottom:24px;">
-        Você está pronto para operar no Low Ticket como um BLACK, ou vai continuar sendo Nutella?
+        Você está pronto para operar no Low Ticket como BLACK, ou vai continuar Nutella?
       </p>
       <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
         ⚠️ Se não escolher <strong>"SOU BLACK"</strong>, o sistema bloqueia seu acesso.
       </p>
       <div class="answers">
         <button type="button" class="answer">Prefiro continuar Nutella</button>
-        <button type="button" class="answer">Ainda não tenho certeza se mereço</button>
-        <button type="button" class="answer">Talvez um dia eu esteja pronto</button>
-        <button type="button" class="answer" id="sou-black">SOU BLACK — quero destravar o sistema agora</button>
+        <button type="button" class="answer">Ainda não tenho certeza</button>
+        <button type="button" class="answer">Talvez um dia</button>
+        <button type="button" class="answer" id="sou-black">SOU BLACK — destravar agora</button>
       </div>
     </section>
 
     <!-- Depoimentos -->
     <section id="depoimentos" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">DEPOIMENTOS DA DEEP WEB</h2>
-      <blockquote>"Depois que ativei o Protocolo Black, o Low Ticket virou uma máquina de escala infinita."<br><br>- Operador Anônimo #011</blockquote>
-      <blockquote>"Antes eu corria atrás de likes, agora eu corro atrás de PIX todo dia."<br><br>- Operador Anônimo #024</blockquote>
-      <blockquote>"Low Ticket no Black não é sobre vender, é sobre dominar o mercado sem ser visto."<br><br>- Operador Anônimo #037</blockquote>
-      <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="continuar-depoimentos">CONTINUAR PROTOCOLO</button>
+      <h2 style="text-align:center;color:var(--neon);">DEPOIMENTOS DA DEEP WEB</h2>
+      <div class="depo">"Com o Low Ticket Black, parei de vender — agora escalo sem parar."<br>- Operador Anônimo #011</div>
+      <div class="depo">"Enquanto outros brigam por likes, eu só coleto pagamentos."<br>- Operador Anônimo #029</div>
+      <div class="depo">"Low Ticket Black é guerra psicológica, e eu já venci."<br>- Operador Anônimo #066</div>
+      <div style="text-align:center;margin-top:20px;">
+        <button type="button" class="btn" id="continue-final">CONTINUAR PROTOCOLO</button>
       </div>
     </section>
 
-    <!-- Confirmação Final -->
-    <section id="final" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 1/2</h2>
-      <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
-        👉 Você vai continuar mendigando likes ou vai ativar um sistema que coloca clientes no seu bolso todo dia?
-      </p>
+    <!-- Confirmação Final 1 -->
+    <section id="confirm1" class="glass hidden">
+      <h3 style="text-align:center;color:var(--neon);">CONFIRMAÇÃO FINAL - 1/2</h3>
+      <p style="text-align:center;margin:14px 0 20px">Você quer acesso vitalício ou vai continuar correndo atrás de likes?</p>
       <div class="answers">
-        <button type="button" class="answer">Prefiro likes de vaidade</button>
-        <button type="button" class="answer">Ainda estou na dúvida</button>
-        <button type="button" class="answer">Quero o acesso vitalício agora</button>
-        <button type="button" class="answer" id="final-black">DOMINAÇÃO TOTAL — clientes em escala diária</button>
+        <button type="button" class="answer">Likes no Instagram</button>
+        <button type="button" class="answer">Não sei</button>
+        <button type="button" class="answer">Acesso vitalício</button>
+        <button type="button" class="answer">Dominação total</button>
+      </div>
+    </section>
+
+    <!-- Confirmação Final 2 -->
+    <section id="confirm2" class="glass hidden">
+      <h3 style="text-align:center;color:var(--neon);">CONFIRMAÇÃO FINAL - 2/2</h3>
+      <p style="text-align:center;margin:14px 0 20px">Está pronto para largar as desculpas e assumir o comando da máquina de vendas Low Ticket?</p>
+      <div class="answers">
+        <button type="button" class="answer">Ainda não — prefiro o manual</button>
+        <button type="button" class="answer">Talvez — tenho receio</button>
+        <button type="button" class="answer">Sim — deixo a IA rodar por mim</button>
+        <button type="button" class="answer">Nasci pra isso — já entreguei tudo ao Black</button>
       </div>
     </section>
 
     <!-- Lead -->
     <section id="lead" class="glass hidden">
-      <h3>Quase lá — destrave seu acesso</h3>
+      <h3>Última etapa — destrave seu acesso</h3>
       <input id="nome" placeholder="Seu nome (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
       <input id="whats" placeholder="Seu WhatsApp (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
       <button id="finish" type="button" class="btn" style="width:100%;margin-top:16px;">LIBERAR ACESSO</button>
@@ -136,7 +145,7 @@
       {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
-      {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você, mesmo sem entender toda a estratégia por trás?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
+      {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você, mesmo sem entender toda a estratégia?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
       {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas de Low Ticket por dia no automático, você toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
     ];
 
@@ -167,8 +176,9 @@
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
-      if(e.target.id==="final-black"){document.getElementById("final").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
+      if(e.target.id==="continue-final"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirm1").classList.remove("hidden");}
+      if(e.target.classList.contains("answer") && e.target.closest("#confirm1")){document.getElementById("confirm1").classList.add("hidden");document.getElementById("confirm2").classList.remove("hidden");}
+      if(e.target.classList.contains("answer") && e.target.closest("#confirm2")){document.getElementById("confirm2").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
       if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
         alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
@@ -182,6 +192,7 @@
   </script>
 </body>
 </html>
+
 
 
 
