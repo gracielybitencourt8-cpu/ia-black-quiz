@@ -1,8 +1,4 @@
-import zipfile
-import os
-
-# Caminho do arquivo HTML final
-html_code = """<!doctype html>
+<!doctype html>
 <html lang="pt-br">
 <head>
   <meta charset="utf-8" />
@@ -27,7 +23,7 @@ html_code = """<!doctype html>
     .glass{background:rgba(0,0,0,.65); border:1px solid var(--neon2); border-radius:16px; padding:24px; margin:24px auto;}
     .hero{text-align:center; margin-top:20vh;}
     .hero h1{color:var(--neon); font-size:32px; text-shadow:0 0 12px var(--neon);}
-    .btn-start{background:linear-gradient(90deg,var(--neon),var(--neon2)); color:#000; font-weight:900; border:none; border-radius:16px; padding:14px 24px; margin-top:20px; cursor:pointer; box-shadow:0 0 20px var(--neon);}
+    .btn{background:linear-gradient(90deg,var(--neon),var(--neon2)); color:#000; font-weight:900; border:none; border-radius:16px; padding:14px 24px; margin-top:20px; cursor:pointer; box-shadow:0 0 20px var(--neon);}
     .answers{display:grid; gap:12px; margin-top:16px;}
     .answer{padding:14px; border-radius:12px; border:1px solid var(--neon2); background:linear-gradient(90deg,var(--neon),var(--neon2)); color:#000; font-weight:900; cursor:pointer; box-shadow:0 0 12px var(--neon);}
     .answer:hover{filter:brightness(1.2);}
@@ -48,7 +44,7 @@ html_code = """<!doctype html>
       <div class="hero">
         <h1>INICIANDO PROTOCOLO BLACK...</h1>
         <p>Sistema carregado. Pressione para continuar.</p>
-        <button id="start" class="btn-start">INICIAR PROTOCOLO</button>
+        <button id="start" class="btn">INICIAR PROTOCOLO</button>
       </div>
     </section>
 
@@ -71,7 +67,30 @@ html_code = """<!doctype html>
       <div class="feature">🛡️ Opera no oculto: sem bloqueio, sem exposição, sem depender de sorte</div>
       <div class="feature">⏰ Vendas 24/7 no piloto automático com ticket baixo e alto giro</div>
       <div style="text-align:center;margin-top:20px;">
-        <button id="continue" type="button" class="btn-start">CONTINUAR PROTOCOLO</button>
+        <button id="continue" type="button" class="btn">CONTINUAR PROTOCOLO</button>
+      </div>
+    </section>
+
+    <!-- Bônus -->
+    <section id="bonus" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">
+        BÔNUS DESBLOQUEADO
+      </h2>
+      <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">
+        [CÓDIGO LOW TICKET ATIVADO]
+      </p>
+      <p style="text-align:center; color:#ffb3c1; margin-bottom:30px;">
+        Se chegar até o fim, você desbloqueia um pacote secreto que transforma ofertas baratas em escala diária.
+      </p>
+      <div class="feature">⚡ Prompts de Conversão (Low Ticket)</div>
+      <div class="feature">🎯 Funil Automático de Escala</div>
+      <div class="feature">🧠 Copy Hipnótica</div>
+      <div class="feature">🛡️ Campanhas Blindadas</div>
+      <div class="feature">👑 Comunidade Low Ticket Black</div>
+      <div style="text-align:center; margin-top:28px;">
+        <button type="button" class="btn" id="continue-system">
+          CONTINUAR PARA O SISTEMA
+        </button>
       </div>
     </section>
 
@@ -80,7 +99,7 @@ html_code = """<!doctype html>
       <h3>Quase lá — destrave seu acesso</h3>
       <input id="nome" placeholder="Seu nome (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
       <input id="whats" placeholder="Seu WhatsApp (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
-      <button id="finish" type="button" class="btn-start" style="width:100%;margin-top:16px;">LIBERAR ACESSO</button>
+      <button id="finish" type="button" class="btn" style="width:100%;margin-top:16px;">LIBERAR ACESSO</button>
     </section>
   </div>
 
@@ -88,7 +107,7 @@ html_code = """<!doctype html>
     // Som
     const moneySound=new Audio("https://www.myinstants.com/media/sounds/cash-register-cha-ching.mp3");
 
-    // Quiz
+    // Perguntas
     const QUESTIONS=[
       // Diagnóstico Psicológico
       {title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
@@ -141,6 +160,10 @@ html_code = """<!doctype html>
       }
       if(e.target.id==="continue"){
         document.getElementById("product").classList.add("hidden");
+        document.getElementById("bonus").classList.remove("hidden");
+      }
+      if(e.target.id==="continue-system"){
+        document.getElementById("bonus").classList.add("hidden");
         document.getElementById("lead").classList.remove("hidden");
       }
       if(e.target.id==="finish"){
@@ -154,19 +177,8 @@ html_code = """<!doctype html>
     function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
   </script>
 </body>
-</html>"""
+</html>
 
-# Criar um arquivo index.html
-html_path = "/mnt/data/index.html"
-with open(html_path, "w", encoding="utf-8") as f:
-    f.write(html_code)
-
-# Compactar em .zip
-zip_path = "/mnt/data/protocolo-black.zip"
-with zipfile.ZipFile(zip_path, 'w') as zipf:
-    zipf.write(html_path, arcname="index.html")
-
-zip_path
 
 
 
