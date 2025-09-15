@@ -21,13 +21,6 @@
     .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
     .hidden{display:none!important}
     blockquote{border:1px solid var(--neon2);border-radius:12px;padding:18px;margin:16px 0;font-style:italic;color:#ffb3c1;}
-    /* small responsive tweaks */
-    @media (max-width:420px){
-      .wrap{padding:12px;}
-      .hero{margin-top:14vh;}
-      .hero h1{font-size:26px;}
-      .btn{padding:12px 16px;}
-    }
   </style>
 </head>
 <body>
@@ -44,10 +37,21 @@
       </div>
     </section>
 
+    <!-- Análise Psicológica -->
+    <section id="analise" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">ANÁLISE DE PERFIL PSICOLÓGICO</h2>
+      <div style="text-align:center; margin:20px 0;">
+        <progress id="progress-bar" value="0" max="100" style="width:100%;height:22px;"></progress>
+      </div>
+      <p id="status" style="text-align:center; margin-top:12px; color:#ffb3c1;">
+        Escaneando padrões comportamentais...
+      </p>
+    </section>
+
     <!-- Quiz -->
     <form id="quiz" class="glass hidden"></form>
 
-    <!-- Apresentação -->
+    <!-- Produto -->
     <section id="product" class="glass hidden">
       <h2 style="color:var(--neon);text-align:center;">APRESENTAÇÃO DO PRODUTO</h2>
       <div style="border:1px solid var(--neon);border-radius:12px;padding:18px;margin-bottom:22px;text-align:center;">
@@ -84,7 +88,7 @@
       </div>
     </section>
 
-    <!-- Filtro de Elite -->
+    <!-- Elite -->
     <section id="elite" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">FILTRO DE ELITE</h2>
       <p style="text-align:center; color:#ff6666; font-weight:700; margin-bottom:24px;">
@@ -122,7 +126,7 @@
         <button type="button" class="answer">Prefiro likes de vaidade</button>
         <button type="button" class="answer">Ainda estou na dúvida</button>
         <button type="button" class="answer">Quero o acesso vitalício agora</button>
-        <button type="button" class="answer">DOMINAÇÃO TOTAL — clientes em escala diária</button>
+        <button type="button" class="answer" id="final-black">DOMINAÇÃO TOTAL — clientes em escala diária</button>
       </div>
     </section>
 
@@ -136,11 +140,11 @@
         <button type="button" class="answer">Ainda não — prefiro continuar no manual</button>
         <button type="button" class="answer">Talvez — mas tenho receio de perder o controle</button>
         <button type="button" class="answer">Sim — quero deixar a IA rodar por mim</button>
-        <button type="button" class="answer">Nasci pra isso — já entreguei tudo ao Black</button>
+        <button type="button" class="answer" id="final2-black">Nasci pra isso — já entreguei tudo ao Black</button>
       </div>
     </section>
 
-    <!-- Arquivos Sujos do Low Ticket (nova etapa) -->
+    <!-- Arquivos Sujos -->
     <section id="arquivos" class="glass hidden" style="border:1px solid var(--neon);">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">
         ACESSO CLANDESTINO LIBERADO — BÔNUS: ARQUIVOS SUJOS DO LOW TICKET
@@ -151,25 +155,13 @@
       <p style="text-align:center; color:#ffb3c1; margin-bottom:28px;">
         ⚠️ Exclusivo pra quem chegou até aqui. Saiu da página, perdeu.
       </p>
-
-      <div class="feature" style="border:1px solid var(--neon2);text-align:left;">
-        🧠 <strong>ARQUIVO 01:</strong> 3 Prompts de Venda Low Ticket<br>
-        Comandos de IA que disparam compras no susto. Copia, cola e deixa a máquina vender enquanto tu vive.
-      </div>
-      <div class="feature" style="border:1px solid var(--neon2);text-align:left;">
-        💣 <strong>ARQUIVO 02:</strong> Blueprint da Copy Agressiva Low Ticket<br>
-        Estrutura suja que fura objeções em 3 segundos. Serve pra anúncios, WhatsApp e landing pages.
-      </div>
-      <div class="feature" style="border:1px solid var(--neon2);text-align:left;">
-        📎 <strong>ARQUIVO 03:</strong> Template de Anúncio Hipnótico<br>
-        Uma linha. Um gancho. Um estouro de cliques. Funciona em qualquer nicho de ticket baixo.
-      </div>
-
+      <div class="feature">🧠 <strong>ARQUIVO 01:</strong> 3 Prompts de Venda Low Ticket</div>
+      <div class="feature">💣 <strong>ARQUIVO 02:</strong> Blueprint da Copy Agressiva Low Ticket</div>
+      <div class="feature">📎 <strong>ARQUIVO 03:</strong> Template de Anúncio Hipnótico</div>
       <p style="text-align:center; color:#ff9999; margin:22px 0;">
         ⛔ Ninguém ensina isso. Nem eu devia tá te mostrando.<br>
         ✅ Você vai ter o acesso agora ou perder o acesso pra sempre.
       </p>
-
       <div style="text-align:center; margin-top:28px;">
         <button type="button" class="btn" id="go-lead">👉 QUERO DOMINAR O LOW TICKET AGORA</button>
       </div>
@@ -211,59 +203,94 @@
       });
     }
 
-    document.getElementById("start").onclick=()=>{document.getElementById("intro").classList.add("hidden");quiz.classList.remove("hidden");renderQuiz();};
+    // Intro -> Análise Psicológica
+    document.getElementById("start").onclick=()=>{
+      document.getElementById("intro").classList.add("hidden");
+      document.getElementById("analise").classList.remove("hidden");
+      let bar=document.getElementById("progress-bar");
+      let status=document.getElementById("status");
+      let val=0;
+      let scan=setInterval(()=>{
+        val+=5;
+        bar.value=val;
+        status.textContent="Escaneando padrões comportamentais... " + val + "%";
+        if(val>=100){
+          clearInterval(scan);
+          setTimeout(()=>{
+            document.getElementById("analise").classList.add("hidden");
+            document.getElementById("quiz").classList.remove("hidden");
+            renderQuiz();
+          },1000);
+        }
+      },200);
+    };
 
     document.addEventListener("click",e=>{
-      // respostas do quiz
       if(e.target.classList.contains("answer") && e.target.closest("#quiz")){
         moneySound.play();addXP(50);
         quiz.children[step].classList.add("hidden");step++;
         if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}
         else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}
       }
-
-      // navegação entre seções
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
-      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-
-      // depoimentos -> confirmação final 1
-      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
-
-      // Confirmação Final 1/2 -> qualquer opção avança para 2/2
-      if(e.target.classList.contains("answer") && e.target.closest("#final")){
+      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add
+      if(e.target.id==="sou-black"){
+        document.getElementById("elite").classList.add("hidden");
+        document.getElementById("depoimentos").classList.remove("hidden");
+        addXP(100);
+      }
+      if(e.target.id==="continuar-depoimentos"){
+        document.getElementById("depoimentos").classList.add("hidden");
+        document.getElementById("final").classList.remove("hidden");
+      }
+      if(e.target.closest("#final") && e.target.classList.contains("answer")){
         document.getElementById("final").classList.add("hidden");
         document.getElementById("final2").classList.remove("hidden");
       }
-
-      // Confirmação Final 2/2 -> qualquer opção avança para ARQUIVOS
-      if(e.target.classList.contains("answer") && e.target.closest("#final2")){
+      if(e.target.closest("#final2") && e.target.classList.contains("answer")){
         document.getElementById("final2").classList.add("hidden");
         document.getElementById("arquivos").classList.remove("hidden");
       }
-
-      // Arquivos -> CTA para lead
       if(e.target.id==="go-lead"){
         document.getElementById("arquivos").classList.add("hidden");
         document.getElementById("lead").classList.remove("hidden");
       }
-
-      // proteção do filtro (elite) - respostas que não são "sou-black" não avançam
-      if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
-        alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
+      if(e.target.id==="finish"){
+        alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");
       }
-
-      // finalização / exemplo (substituir por checkout real)
-      if(e.target.id==="finish"){alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");}
     });
 
     // Matrix vermelho
-    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let w,h,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
-    function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
-    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
+    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");
+    let w,h,cols,drops;
+    const fontSize=16;
+    const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
+    function resize(){
+      w=canvas.width=innerWidth;
+      h=canvas.height=innerHeight;
+      cols=Math.floor(w/fontSize);
+      drops=Array(cols).fill(1);
+    }
+    window.addEventListener("resize",resize);resize();
+    function draw(){
+      ctx.fillStyle="rgba(0,0,0,0.08)";
+      ctx.fillRect(0,0,w,h);
+      ctx.fillStyle="#ff1a40";
+      ctx.font=fontSize+"px monospace";
+      for(let i=0;i<drops.length;i++){
+        const text=glyphs[Math.floor(Math.random()*glyphs.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+        if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;
+        drops[i]++;
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
   </script>
 </body>
 </html>
+
 
 
 
