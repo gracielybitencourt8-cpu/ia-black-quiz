@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>IA Black • Protocolo + Quiz</title>
-<meta name="description" content="Protocolo Black com intro + quiz gamificado (XP/LVL), efeito matrix vermelho, sons e barra de progresso." />
+<meta name="description" content="Protocolo Black com intro + quiz gamificado (XP/LVL), efeito matrix vermelho, sons de dinheiro e barra de progresso." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
@@ -131,7 +131,7 @@ footer{text-align:center; padding:40px 12px; color:#f59cae; opacity:.9}
 
 <footer>© <span id="year"></span> IA Black</footer>
 
-<audio id="clickSound" src="click.mp3"></audio>
+<audio id="moneySound" src="money.mp3"></audio>
 
 <script>
 const QUESTIONS=[
@@ -162,46 +162,6 @@ function renderQuiz(){
     s.dataset.step=i;
     s.innerHTML=`
       <h3>${q.q}</h3>
-      <div class="answers">${q.a.map(opt=>`<button type="button" class="answer" data-a="${opt}">${opt}</button>`).join('')}</div>
-      <div class="nav">
-        <button type="button" class="prev" ${i===0?'disabled':''}>Voltar</button>
-        <button type="button" class="skip">Pular</button>
-      </div>`;
-    f.appendChild(s);
-  });
-  f.classList.remove('hidden');
-  showStep(0);
-}
+      <div class="answers">${q.a.map(opt=>`<button type="button" class="answer" data-a="${
 
-$('#start').addEventListener('click',()=>{
-  $('#intro').classList.add('hidden');
-  renderQuiz();
-});
-
-const clickSound = document.getElementById('clickSound');
-
-document.addEventListener('click', e=>{
-  if(e.target.matches('.answer')){
-    xp +=50;
-    if(xp>=lvl*100) lvl++;
-    clickSound.currentTime=0; clickSound.play();
-    showStep(step+1);
-  }
-  if(e.target.matches('.prev')) showStep(step-1);
-  if(e.target.matches('.skip')) showStep(step+1);
-  if(e.target.matches('#finish')) alert('Enviar ao checkout');
-});
-
-document.getElementById('year').textContent=new Date().getFullYear();
-
-// MATRIX vermelho
-const canvas=document.getElementById('matrix'); const ctx=canvas.getContext('2d');
-let w,h,cols,drops; const fontSize=16; const glyphs='アカサタナハマヤラワ0123456789ZXCVBNM';
-function resize(){w=canvas.width=innerWidth; h=canvas.height=innerHeight; cols=Math.floor(w/fontSize); drops=Array(cols).fill(1);}
-window.addEventListener('resize',resize); resize();
-function draw(){ ctx.fillStyle='rgba(0,0,0,0.08)'; ctx.fillRect(0,0,w,h); ctx.fillStyle='#ff1a40'; ctx.font=fontSize+'px monospace'; for(let i=0;i<drops.length;i++){ const text=glyphs[Math.floor(Math.random()*glyphs.length)]; ctx.fillText(text,i*fontSize,drops[i]*fontSize); if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0; drops[i]++; } requestAnimationFrame(draw);}
-draw();
-</script>
-</body>
-</html>
 
