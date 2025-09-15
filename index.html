@@ -7,28 +7,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
   <style>
     :root{
-      --neon:#15ff95;
-      --neon2:#07b67a;
+      --neon:#ff2b4d;
+      --neon2:#ff4d6d;
       --bg:#000;
     }
     *{box-sizing:border-box}
     body{
       margin:0; font-family:"Orbitron",sans-serif;
-      background:#000; color:#e6fff3;
+      background:#000; color:#ffe8ed;
       overflow-x:hidden;
     }
     #matrix{position:fixed; inset:0; z-index:-2; background:#000;}
-    .vignette{position:fixed; inset:0; z-index:-1; background:radial-gradient(1000px 600px at 50% 50%, rgba(0,0,0,.5), transparent 70%);}
-    .hud{position:sticky; top:0; z-index:30; background:rgba(0,0,0,.6); padding:8px 14px; display:flex; gap:16px; justify-content:center; font-size:14px; color:var(--neon); border-bottom:1px solid var(--neon2);}
-    .progress{height:6px; flex:1; margin-top:8px; border-radius:999px; background:#111; overflow:hidden;}
-    .progress > div{height:100%; width:0%; background:linear-gradient(90deg,var(--neon),var(--neon2)); box-shadow:0 0 10px var(--neon);}
+    .hud{position:sticky; top:0; z-index:30; background:rgba(0,0,0,.6); padding:8px 14px; display:flex; justify-content:center; font-size:14px; color:var(--neon); border-bottom:1px solid var(--neon2);}
     .wrap{max-width:800px; margin:0 auto; padding:20px;}
     .glass{background:rgba(0,0,0,.65); border:1px solid var(--neon2); border-radius:16px; padding:24px; margin:24px auto;}
     .hero{text-align:center; margin-top:20vh;}
-    .hero h1{color:var(--neon); font-size:32px; text-shadow:0 0 10px var(--neon);}
+    .hero h1{color:var(--neon); font-size:32px; text-shadow:0 0 12px var(--neon);}
     .btn-start{background:linear-gradient(90deg,var(--neon),var(--neon2)); color:#000; font-weight:900; border:none; border-radius:16px; padding:14px 24px; margin-top:20px; cursor:pointer; box-shadow:0 0 20px var(--neon);}
     .answers{display:grid; gap:12px; margin-top:16px;}
-    .answer{padding:14px; border-radius:12px; border:1px solid var(--neon2); background:rgba(21,255,149,.8); color:#000; font-weight:900; cursor:pointer; box-shadow:0 0 12px var(--neon);}
+    .answer{padding:14px; border-radius:12px; border:1px solid var(--neon2); background:linear-gradient(90deg,var(--neon),var(--neon2)); color:#000; font-weight:900; cursor:pointer; box-shadow:0 0 12px var(--neon);}
     .answer:hover{filter:brightness(1.2);}
     .feature{margin:12px 0; padding:14px; border:1px solid var(--neon2); border-radius:12px; text-align:center;}
     .hidden{display:none!important}
@@ -36,7 +33,6 @@
 </head>
 <body>
   <canvas id="matrix"></canvas>
-  <div class="vignette"></div>
 
   <div class="hud">
     <span id="xp">0 XP</span> | <span id="lvl">LVL 1</span>
@@ -109,8 +105,7 @@
         <p style="text-align:center;margin:14px 0 20px">${q.q}</p>
         <div class="answers">
           ${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}
-        </div>
-        <div class="progress"><div id="bar${i}"></div></div>`;
+        </div>`;
         quiz.appendChild(s);
       });
     }
@@ -143,13 +138,14 @@
       }
     });
 
-    // Matrix
+    // Matrix vermelho
     const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d"); let w,h,cols,drops; const fontSize=16; const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
     function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/fontSize);drops=Array(cols).fill(1);} window.addEventListener("resize",resize); resize();
-    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#0f0";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
+    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
   </script>
 </body>
 </html>
+
 
 
 
