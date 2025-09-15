@@ -93,6 +93,30 @@
       </div>
     </section>
 
+    <!-- Depoimentos (3) -->
+    <section id="testimonials" class="glass hidden">
+      <h2 style="text-align:center;color:var(--neon);margin-bottom:20px;">DEPOIMENTOS DA DEEP WEB</h2>
+
+      <div class="glass" style="margin-bottom:16px">
+        <p>"Antes eu achava que low ticket era esmola. Depois do Protocolo Black, cada micro-venda virou uma enxurrada de caixa diário."</p>
+        <p style="color:#ffb3c1;">— Operador Anônimo #013</p>
+      </div>
+
+      <div class="glass" style="margin-bottom:16px">
+        <p>"Não é sobre vender barato, é sobre vender em massa. Enquanto os Nutella brigam por uma venda, eu fecho dezenas no piloto automático."</p>
+        <p style="color:#ffb3c1;">— Operador Anônimo #042</p>
+      </div>
+
+      <div class="glass" style="margin-bottom:16px">
+        <p>"Low ticket sem sistema é esmola. Com a IA Black, virou uma máquina que imprime leads e vendas 24/7."</p>
+        <p style="color:#ffb3c1;">— Operador Anônimo #099</p>
+      </div>
+
+      <div style="text-align:center;margin-top:20px;">
+        <button class="btn" onclick="nextLead()">CONTINUAR PROTOCOLO</button>
+      </div>
+    </section>
+
     <!-- Lead -->
     <section id="lead" class="glass hidden">
       <h3>Quase lá — destrave seu acesso</h3>
@@ -140,12 +164,17 @@
       }
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
-      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");addXP(100);}
+      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("testimonials").classList.remove("hidden");addXP(100);}
       if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
         alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
       if(e.target.id==="finish"){alert("Enviar ao checkout...");}
     });
+
+    function nextLead(){
+      document.getElementById("testimonials").classList.add("hidden");
+      document.getElementById("lead").classList.remove("hidden");
+    }
 
     // Matrix vermelho
     const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let w,h,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
@@ -154,6 +183,7 @@
   </script>
 </body>
 </html>
+
 
 
 
