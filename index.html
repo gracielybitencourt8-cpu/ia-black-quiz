@@ -115,7 +115,7 @@
         <button type="button" class="answer">Prefiro likes de vaidade</button>
         <button type="button" class="answer">Ainda estou na dúvida</button>
         <button type="button" class="answer">Quero o acesso vitalício agora</button>
-        <button type="button" class="answer" id="final-black">DOMINAÇÃO TOTAL — clientes em escala diária</button>
+        <button type="button" class="answer">DOMINAÇÃO TOTAL — clientes em escala diária</button>
       </div>
     </section>
 
@@ -129,7 +129,7 @@
         <button type="button" class="answer">Ainda não — prefiro continuar no manual</button>
         <button type="button" class="answer">Talvez — mas tenho receio de perder o controle</button>
         <button type="button" class="answer">Sim — quero deixar a IA rodar por mim</button>
-        <button type="button" class="answer" id="final2-black">Nasci pra isso — já entreguei tudo ao Black</button>
+        <button type="button" class="answer">Nasci pra isso — já entreguei tudo ao Black</button>
       </div>
     </section>
 
@@ -182,8 +182,16 @@
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
       if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
-      if(e.target.id==="final-black"){document.getElementById("final").classList.add("hidden");document.getElementById("final2").classList.remove("hidden");}
-      if(e.target.id==="final2-black"){document.getElementById("final2").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
+      // Confirmação Final 1/2 → qualquer opção leva para 2/2
+      if(e.target.classList.contains("answer") && e.target.closest("#final")){
+        document.getElementById("final").classList.add("hidden");
+        document.getElementById("final2").classList.remove("hidden");
+      }
+      // Confirmação Final 2/2 → qualquer opção leva para Lead
+      if(e.target.classList.contains("answer") && e.target.closest("#final2")){
+        document.getElementById("final2").classList.add("hidden");
+        document.getElementById("lead").classList.remove("hidden");
+      }
       if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
         alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
@@ -197,6 +205,7 @@
   </script>
 </body>
 </html>
+>
 
 
 
