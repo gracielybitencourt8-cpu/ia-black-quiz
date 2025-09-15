@@ -106,7 +106,7 @@
     </section>
 
     <!-- Confirmação Final 1/2 -->
-    <section id="final1" class="glass hidden">
+    <section id="final" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 1/2</h2>
       <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
         👉 Você vai continuar mendigando likes ou vai ativar um sistema que coloca clientes no seu bolso todo dia?
@@ -129,35 +129,16 @@
         <button type="button" class="answer">Ainda não — prefiro continuar no manual</button>
         <button type="button" class="answer">Talvez — mas tenho receio de perder o controle</button>
         <button type="button" class="answer">Sim — quero deixar a IA rodar por mim</button>
-        <button type="button" class="answer" id="go-low">Nasci pra isso — já entreguei tudo ao Low Ticket</button>
+        <button type="button" class="answer" id="final2-black">Nasci pra isso — já entreguei tudo ao Black</button>
       </div>
     </section>
 
-    <!-- Final Low Ticket -->
-    <section id="lowticket" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); font-size:34px; text-shadow:0 0 16px var(--neon); margin-bottom:14px;">
-        🚀 PROTOCOLO LOW TICKET INICIADO
-      </h2>
-      <p style="text-align:center; font-size:18px; color:#ffb3c1; margin:0 0 24px; font-weight:600;">
-        Tu não desbloqueou um curso qualquer. Tu soltou o mecanismo que faltava pra dominar o jogo do <strong>Low Ticket</strong>.<br>
-        Esquece likes, esquece promessas vazias. Aqui é venda todo dia, no oculto — sem bloqueios, sem rosto, sem misericórdia.
-      </p>
-      
-      <div class="feature">⚡ Dominar a arte de montar funis de ticket baixo que giram sozinhos e esmagam objeções.</div>
-      <div class="feature">🎯 Infiltrar campanhas de baixo valor no leilão sem travar e sem bloqueio.</div>
-      <div class="feature">🧠 Criar copys agressivas que fazem o lead comprar no susto.</div>
-      <div class="feature">⏰ Vender 24/7 com ofertas de baixo valor, mas em alto volume.</div>
-
-      <h3 style="text-align:center; color:var(--neon); margin:30px 0 14px;">📂 ARQUIVOS SUJOS DO LOW TICKET</h3>
-      <div class="feature">🧠 Arquivo 01: 3 Prompts de Venda Instantânea (Low Ticket)</div>
-      <div class="feature">🔥 Arquivo 02: Blueprint da Copy Agressiva de Ticket Baixo</div>
-      <div class="feature">📎 Arquivo 03: Template de Anúncio Hipnótico para ofertas baratas</div>
-
-      <div style="text-align:center; margin-top:32px;">
-        <button id="finish" type="button" class="btn" style="width:100%; font-size:18px; padding:18px;">
-          👉 LIBERAR O ACESSO ILEGAL AO LOW TICKET AGORA
-        </button>
-      </div>
+    <!-- Lead -->
+    <section id="lead" class="glass hidden">
+      <h3>Quase lá — destrave seu acesso</h3>
+      <input id="nome" placeholder="Seu nome (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
+      <input id="whats" placeholder="Seu WhatsApp (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
+      <button id="finish" type="button" class="btn" style="width:100%;margin-top:16px;">LIBERAR ACESSO</button>
     </section>
   </div>
 
@@ -173,22 +154,14 @@
       {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas de Low Ticket por dia no automático, você toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
     ];
 
-    const quiz=document.getElementById("quiz"); 
-    let step=0,xp=0,lvl=1;
-
-    function addXP(n){
-      xp+=n;
-      if(xp>=lvl*100){lvl++;}
-      document.getElementById("xp").textContent=xp+" XP";
-      document.getElementById("lvl").textContent="LVL "+lvl;
-    }
+    const quiz=document.getElementById("quiz"); let step=0,xp=0,lvl=1;
+    function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
 
     function renderQuiz(){
       quiz.innerHTML="";
       QUESTIONS.forEach((q,i)=>{
         const s=document.createElement("section");
-        s.dataset.step=i;
-        s.className=i===0?"":"hidden";
+        s.dataset.step=i;s.className=i===0?"":"hidden";
         s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3>
         <p style="text-align:center;margin:14px 0 20px">${q.q}</p>
         <div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;
@@ -196,34 +169,23 @@
       });
     }
 
-    document.getElementById("start").onclick=()=>{
-      document.getElementById("intro").classList.add("hidden");
-      quiz.classList.remove("hidden");
-      renderQuiz();
-    };
+    document.getElementById("start").onclick=()=>{document.getElementById("intro").classList.add("hidden");quiz.classList.remove("hidden");renderQuiz();};
 
     document.addEventListener("click",e=>{
       if(e.target.classList.contains("answer") && e.target.closest("#quiz")){
         moneySound.play();addXP(50);
-        quiz.children[step].classList.add("hidden");
-        step++;
-        if(step<QUESTIONS.length){
-          quiz.children[step].classList.remove("hidden");
-        } else {
-          quiz.classList.add("hidden");
-          document.getElementById("product").classList.remove("hidden");
-        }
+        quiz.children[step].classList.add("hidden");step++;
+        if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}
+        else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}
       }
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final1").classList.remove("hidden");}
-      if(e.target.id==="final-black"){document.getElementById("final1").classList.add("hidden");document.getElementById("final2").classList.remove("hidden");}
-      // qualquer clique leva ao final Low Ticket
-      if(e.target.closest("#final2") && e.target.classList.contains("answer")){
-        document.getElementById("final2").classList.add("hidden");
-        document.getElementById("lowticket").classList.remove("hidden");
-        if(e.target.id==="go-low"){ addXP(200); }
+      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
+      if(e.target.id==="final-black"){document.getElementById("final").classList.add("hidden");document.getElementById("final2").classList.remove("hidden");}
+      if(e.target.id==="final2-black"){document.getElementById("final2").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
+      if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
+        alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
       if(e.target.id==="finish"){alert("Enviar ao checkout...");}
     });
@@ -231,26 +193,11 @@
     // Matrix vermelho
     const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let w,h,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
     function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
-    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";…continuando o código completo:  
-
-```html
-    function draw(){
-      ctx.fillStyle="rgba(0,0,0,0.08)";
-      ctx.fillRect(0,0,w,h);
-      ctx.fillStyle="#ff1a40";
-      ctx.font=fontSize+"px monospace";
-      for(let i=0;i<drops.length;i++){
-        const text=glyphs[Math.floor(Math.random()*glyphs.length)];
-        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-        if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;
-        drops[i]++;
-      }
-      requestAnimationFrame(draw);
-    }
-    draw();
+    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
   </script>
 </body>
 </html>
+
 
 
 
