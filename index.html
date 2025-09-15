@@ -71,7 +71,7 @@
       <div class="feature">🎯 Funil Automático de Escala</div>
       <div class="feature">🧠 Copy Hipnótica</div>
       <div class="feature">🛡️ Campanhas Blindadas</div>
-      <div class="feature">👑 Comunidade Low Ticket Black</div>
+      <div class="feature">👑 Comunidade Low Ticket</div>
       <div style="text-align:center; margin-top:28px;">
         <button type="button" class="btn" id="continue-elite">CONTINUAR PARA O FILTRO</button>
       </div>
@@ -105,31 +105,25 @@
       </div>
     </section>
 
-    <!-- Confirmação Final 1/2 -->
-    <section id="final" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 1/2</h2>
-      <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
-        👉 Você vai continuar mendigando likes ou vai ativar um sistema que coloca clientes no seu bolso todo dia?
+    <!-- Protocolo Low Ticket -->
+    <section id="lowticket" class="glass hidden">
+      <h2 style="color:var(--neon); text-align:center;">PROTOCOLO LOW TICKET INICIADO</h2>
+      <p style="text-align:center; margin:18px 0; color:#ffe8ed;">
+        “Tu não desbloqueou um curso qualquer. Tu soltou o mecanismo que faltava pra dominar o jogo do Low Ticket.<br>
+        Esquece likes, esquece promessas vazias. Aqui é venda todo dia, no oculto — sem bloqueios, sem rosto, sem misericórdia.”
       </p>
-      <div class="answers">
-        <button type="button" class="answer">Prefiro likes de vaidade</button>
-        <button type="button" class="answer">Ainda estou na dúvida</button>
-        <button type="button" class="answer">Quero o acesso vitalício agora</button>
-        <button type="button" class="answer" id="final-black">DOMINAÇÃO TOTAL — clientes em escala diária</button>
-      </div>
-    </section>
+      <div class="feature">⚡ Dominar a arte de montar funis de ticket baixo que giram sozinhos e esmagam objeções.</div>
+      <div class="feature">🎯 Infiltrar campanhas de baixo valor no leilão sem travar e sem bloqueio.</div>
+      <div class="feature">🧠 Criar copys agressivas que fazem o lead comprar no susto.</div>
+      <div class="feature">⏰ Vender 24/7 com ofertas de baixo valor, mas em alto volume.</div>
 
-    <!-- Confirmação Final 2/2 -->
-    <section id="final2" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 2/2</h2>
-      <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
-        👉 Está pronto para largar as desculpas e assumir o comando da máquina de vendas Low Ticket?
-      </p>
-      <div class="answers">
-        <button type="button" class="answer">Ainda não — prefiro continuar no manual</button>
-        <button type="button" class="answer">Talvez — mas tenho receio de perder o controle</button>
-        <button type="button" class="answer">Sim — quero deixar a IA rodar por mim</button>
-        <button type="button" class="answer" id="final2-black">Nasci pra isso — já entreguei tudo ao Black</button>
+      <h3 style="color:var(--neon); text-align:center; margin-top:28px;">🔴 Arquivos Sujos do Low Ticket</h3>
+      <div class="feature">🧠 Arquivo 01: 3 Prompts de Venda Instantânea (Low Ticket)</div>
+      <div class="feature">🔥 Arquivo 02: Blueprint da Copy Agressiva de Ticket Baixo</div>
+      <div class="feature">📎 Arquivo 03: Template de Anúncio Hipnótico para ofertas baratas</div>
+
+      <div style="text-align:center; margin-top:28px;">
+        <button type="button" class="btn" id="go-lead">👉 LIBERAR O ACESSO ILEGAL AO LOW TICKET AGORA</button>
       </div>
     </section>
 
@@ -181,13 +175,12 @@
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
-      if(e.target.id==="final-black"){document.getElementById("final").classList.add("hidden");document.getElementById("final2").classList.remove("hidden");}
-      if(e.target.id==="final2-black"){document.getElementById("final2").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
+      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
+      if(e.target.id==="go-lead"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
       if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
         alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
-      if(e.target.id==="finish"){alert("Enviar ao checkout...");}
+      if(e.target.id==="finish"){alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");}
     });
 
     // Matrix vermelho
@@ -197,6 +190,7 @@
   </script>
 </body>
 </html>
+
 
 
 
