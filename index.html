@@ -234,16 +234,8 @@
       }
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
-      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add
-      if(e.target.id==="sou-black"){
-        document.getElementById("elite").classList.add("hidden");
-        document.getElementById("depoimentos").classList.remove("hidden");
-        addXP(100);
-      }
-      if(e.target.id==="continuar-depoimentos"){
-        document.getElementById("depoimentos").classList.add("hidden");
-        document.getElementById("final").classList.remove("hidden");
-      }
+      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
+      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
       if(e.target.closest("#final") && e.target.classList.contains("answer")){
         document.getElementById("final").classList.add("hidden");
         document.getElementById("final2").classList.remove("hidden");
@@ -290,6 +282,7 @@
   </script>
 </body>
 </html>
+
 
 
 
