@@ -1,107 +1,182 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>IA Black • Protocolo</title>
-<style>
-:root { --neon:#15ff95; --neon2:#07b67a; }
-body { margin:0; font-family:'Orbitron', sans-serif; background:black; color:white; overflow-x:hidden; }
-canvas#matrix { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; background:black; }
-#hud { position:fixed; top:10px; left:50%; transform:translateX(-50%); display:flex; gap:10px; font-size:14px; background:rgba(0,0,0,.6); border:1px solid var(--neon2); border-radius:8px; padding:6px 14px; color:var(--neon); box-shadow:0 0 10px var(--neon); }
-.hero { text-align:center; margin-top:20vh; }
-.hero h1 { font-size:28px; color:var(--neon); text-shadow:0 0 8px var(--neon),0 0 20px rgba(21,255,149,.6); margin-bottom:20px; }
-.hero p { color:#ccc; margin-bottom:25px; }
-.btn { background:linear-gradient(90deg,var(--neon),var(--neon2)); color:#000; font-weight:900; border-radius:18px; padding:14px 24px; text-transform:uppercase; letter-spacing:.08em; text-shadow:0 0 4px rgba(0,0,0,.6); box-shadow:0 0 20px var(--neon),0 0 40px rgba(21,255,149,.5); transition:transform .15s, filter .15s; border:none; cursor:pointer; }
-.btn:hover { filter:brightness(1.15); transform:translateY(-2px); }
-.card { margin:40px auto; max-width:500px; padding:20px; border-radius:18px; background:rgba(0,0,0,.65); border:1px solid rgba(21,255,149,.2); text-align:center; }
-.card h3 { color:var(--neon); text-shadow:0 0 6px var(--neon); margin-bottom:20px; }
-.answer { background: rgba(21,255,149,0.75); color:#000; font-weight:800; border-radius:14px; padding:14px; margin:10px 0; text-align:center; box-shadow:0 0 12px var(--neon), inset 0 0 6px rgba(0,0,0,.6); transition:transform .15s, filter .15s; cursor:pointer; display:block; }
-.answer:hover { filter:brightness(1.2); transform:translateY(-2px); }
-.hidden { display:none; }
-.progress { height:12px; background:#222; border-radius:6px; margin:20px auto; max-width:500px; overflow:hidden; }
-.progress-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--neon),var(--neon2)); transition:width .3s ease; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IA Black • Protocolo</title>
+  <style>
+    :root {
+      --neon:#15ff95;
+      --neon2:#07b67a;
+    }
+    body {
+      margin:0;
+      font-family: 'Orbitron', sans-serif;
+      background:black;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* Tela inteira fundo Matrix */
+    canvas#matrix {
+      position:fixed;
+      top:0;left:0;
+      width:100%;height:100%;
+      z-index:-1;
+      background:black;
+    }
+
+    /* HUD XP e Level */
+    #hud {
+      position:fixed;
+      top:10px;left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:10px;
+      font-size:14px;
+      background:rgba(0,0,0,.6);
+      border:1px solid var(--neon2);
+      border-radius:8px;
+      padding:6px 14px;
+      color:var(--neon);
+      box-shadow:0 0 10px var(--neon);
+    }
+
+    /* Hero */
+    .hero {
+      text-align:center;
+      margin-top:20vh;
+    }
+    .hero h1 {
+      font-size:28px;
+      color:var(--neon);
+      text-shadow:0 0 8px var(--neon),0 0 20px rgba(21,255,149,.6);
+      margin-bottom:20px;
+    }
+    .hero p {
+      color:#ccc;
+      margin-bottom:25px;
+    }
+
+    /* Botão principal */
+    .btn {
+      background: linear-gradient(90deg,var(--neon),var(--neon2));
+      color:#000;
+      font-weight:900;
+      border-radius:18px;
+      padding:14px 24px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      text-shadow:0 0 4px rgba(0,0,0,.6);
+      box-shadow:0 0 20px var(--neon),0 0 40px rgba(21,255,149,.5);
+      transition:transform .15s, filter .15s;
+      border:none;
+      cursor:pointer;
+    }
+    .btn:hover {
+      filter:brightness(1.15);
+      transform:translateY(-2px);
+    }
+
+    /* Perguntas */
+    .card {
+      margin:40px auto;
+      max-width:500px;
+      padding:20px;
+      border-radius:18px;
+      background:rgba(0,0,0,.65);
+      border:1px solid rgba(21,255,149,.2);
+      text-align:center;
+    }
+    .card h3 {
+      color:var(--neon);
+      text-shadow:0 0 6px var(--neon);
+      margin-bottom:20px;
+    }
+
+    /* Opções do quiz */
+    .answer {
+      background: rgba(21,255,149,0.75); /* VERDE NEON translúcido */
+      color:#000;                        /* Letras pretas */
+      font-weight:800;
+      border-radius:14px;
+      padding:14px;
+      margin:10px 0;
+      text-align:center;
+      box-shadow:0 0 12px var(--neon), inset 0 0 6px rgba(0,0,0,.6);
+      transition:transform .15s, filter .15s;
+      cursor:pointer;
+      display:block;
+    }
+    .answer:hover {
+      filter:brightness(1.2);
+      transform:translateY(-2px);
+    }
+  </style>
 </head>
 <body>
-<canvas id="matrix"></canvas>
-<div id="hud"> <span id="xp">0 XP</span> | <span id="lvl">LVL 1</span> </div>
+  <canvas id="matrix"></canvas>
 
-<section id="intro" class="hero">
-  <h1>INICIANDO PROTOCOLO BLACK...</h1>
-  <p>Sistema carregado. Pressione para continuar.</p>
-  <button id="startBtn" class="btn">Iniciar Protocolo</button>
-</section>
+  <div id="hud"> <span id="xp">0 XP</span> | <span id="lvl">LVL 1</span> </div>
 
-<div id="quiz" class="hidden">
-  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-  <div class="card" id="step1">
-    <h3>Qual seu principal objetivo agora?</h3>
-    <button class="answer">Renda extra imediata</button>
-    <button class="answer">Estruturar vendas no sigilo</button>
-    <button class="answer">Validar um produto</button>
-    <button class="answer">Escalar o que já vende</button>
-  </div>
-  <div class="card hidden" id="step2">
-    <h3>Quanto tempo por dia você pode dedicar ao sistema?</h3>
-    <button class="answer">Menos de 1h</button>
-    <button class="answer">1 a 3h</button>
-    <button class="answer">Mais de 3h</button>
-  </div>
-  <div class="card hidden" id="step3">
-    <h3>Você prefere trabalhar aparecendo ou no anonimato?</h3>
-    <button class="answer">No anonimato</button>
-    <button class="answer">Aparecendo</button>
-    <button class="answer">Ambos</button>
-  </div>
-  <div class="card hidden" id="step4">
-    <h3>Qual é seu nível de experiência em vendas?</h3>
-    <button class="answer">Iniciante</button>
-    <button class="answer">Intermediário</button>
-    <button class="answer">Avançado</button>
-  </div>
-  <div class="card hidden" id="step5">
-    <h3>Qual seu maior desafio atualmente?</h3>
-    <button class="answer">Falta de clientes</button>
-    <button class="answer">Falta de tempo</button>
-    <button class="answer">Marketing/Anúncios</button>
-    <button class="answer">Outro</button>
-  </div>
-  <div class="card hidden" id="step6">
-    <h3>Qual plataforma prefere para vendas?</h3>
-    <button class="answer">Instagram</button>
-    <button class="answer">Facebook</button>
-    <button class="answer">WhatsApp</button>
-    <button class="answer">Outras</button>
-  </div>
-  <div class="card hidden" id="step7">
-    <h3>Pronto para acessar o Sistema Oculto?</h3>
-    <a href="https://seulink.com" class="btn">ACESSAR AGORA</a>
-  </div>
-</div>
+  <section id="intro" class="hero">
+    <h1>INICIANDO PROTOCOLO BLACK...</h1>
+    <p>Sistema carregado. Pressione para continuar.</p>
+    <button id="startBtn" class="btn">Iniciar Protocolo</button>
+  </section>
+
+  <form id="quiz" class="hidden">
+    <div class="card">
+      <h3>Qual seu principal objetivo agora?</h3>
+      <button type="button" class="answer">Renda extra imediata</button>
+      <button type="button" class="answer">Estruturar vendas no sigilo</button>
+      <button type="button" class="answer">Validar um produto</button>
+      <button type="button" class="answer">Escalar o que já vende</button>
+    </div>
+  </form>
 
 <script>
-// ===== Matrix Effect =====
-const canvas=document.getElementById("matrix"); const ctx=canvas.getContext("2d");
-canvas.height=window.innerHeight; canvas.width=window.innerWidth;
-const letters="アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const font=14; const cols=canvas.width/font; const drops=Array(cols).fill(1);
-function draw(){ ctx.fillStyle="rgba(0,0,0,0.08)"; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle="#0f0"; ctx.font=font+"px monospace"; for(let i=0;i<drops.length;i++){ const txt=letters[Math.floor(Math.random()*letters.length)]; ctx.fillText(txt,i*font,drops[i]*font); if(drops[i]*font>canvas.height && Math.random()>0.975) drops[i]=0; drops[i]++; } }
-setInterval(draw,40);
+  // ===== Efeito Matrix =====
+  const canvas=document.getElementById("matrix");
+  const ctx=canvas.getContext("2d");
+  canvas.height=window.innerHeight; canvas.width=window.innerWidth;
+  const letters="アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  const font=14; const cols=canvas.width/font;
+  const drops=Array(cols).fill(1);
 
-// ===== Game Logic =====
-let xp=0,lvl=1;
-function addXP(n){ xp+=n; if(xp>=lvl*100){ lvl++; } document.getElementById("xp").textContent=xp+" XP"; document.getElementById("lvl").textContent="LVL "+lvl; }
-document.getElementById("startBtn").addEventListener("click",()=>{ document.getElementById("intro").style.display="none"; document.getElementById("quiz").classList.remove("hidden"); showStep(1); addXP(100); });
+  function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="#0f0"; ctx.font=font+"px monospace";
+    for(let i=0;i<drops.length;i++){
+      const txt=letters[Math.floor(Math.random()*letters.length)];
+      ctx.fillText(txt,i*font,drops[i]*font);
+      if(drops[i]*font>canvas.height && Math.random()>0.975) drops[i]=0;
+      drops[i]++;
+    }
+  }
+  setInterval(draw,40);
 
-const totalSteps=7; let currentStep=0;
-function showStep(n){ currentStep=n; for(let i=1;i<=totalSteps;i++){ document.getElementById("step"+i).classList.add("hidden"); } document.getElementById("step"+n).classList.remove("hidden"); document.getElementById("progressBar").style.width=((n-1)/(totalSteps-1))*100+"%"; }
+  // ===== Game Logic =====
+  let xp=0, lvl=1;
+  function addXP(n){
+    xp+=n; if(xp>=lvl*100){ lvl++; }
+    document.getElementById("xp").textContent=xp+" XP";
+    document.getElementById("lvl").textContent="LVL "+lvl;
+  }
 
-document.querySelectorAll(".answer").forEach(btn=>{ btn.addEventListener("click",()=>{ addXP(50); showStep(currentStep+1); }); });
+  document.getElementById("startBtn").addEventListener("click",()=>{
+    document.getElementById("intro").style.display="none";
+    document.getElementById("quiz").classList.remove("hidden");
+    addXP(100);
+  });
 
-// ===== Capture UTMs =====
-const params=new URLSearchParams(window.location.search); params.forEach((v,k)=>{ localStorage.setItem(k,v); });
-console.log("UTMs:",Object.fromEntries(params.entries()));
+  document.querySelectorAll(".answer").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      addXP(50);
+      alert("Você escolheu: "+btn.textContent);
+    });
+  });
 </script>
 </body>
 </html>
