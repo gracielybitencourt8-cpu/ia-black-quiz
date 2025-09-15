@@ -105,7 +105,7 @@
       </div>
     </section>
 
-    <!-- Confirmação Final -->
+    <!-- Confirmação Final 1/2 -->
     <section id="final" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 1/2</h2>
       <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
@@ -116,6 +116,20 @@
         <button type="button" class="answer">Ainda estou na dúvida</button>
         <button type="button" class="answer">Quero o acesso vitalício agora</button>
         <button type="button" class="answer" id="final-black">DOMINAÇÃO TOTAL — clientes em escala diária</button>
+      </div>
+    </section>
+
+    <!-- Confirmação Final 2/2 -->
+    <section id="final2" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 2/2</h2>
+      <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
+        👉 Está pronto para largar as desculpas e assumir o comando da máquina de vendas Low Ticket?
+      </p>
+      <div class="answers">
+        <button type="button" class="answer">Ainda não — prefiro continuar no manual</button>
+        <button type="button" class="answer">Talvez — mas tenho receio de perder o controle</button>
+        <button type="button" class="answer">Sim — quero deixar a IA rodar por mim</button>
+        <button type="button" class="answer" id="final2-black">Nasci pra isso — já entreguei tudo ao Black</button>
       </div>
     </section>
 
@@ -168,7 +182,8 @@
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
       if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
-      if(e.target.id==="final-black"){document.getElementById("final").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
+      if(e.target.id==="final-black"){document.getElementById("final").classList.add("hidden");document.getElementById("final2").classList.remove("hidden");}
+      if(e.target.id==="final2-black"){document.getElementById("final2").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
       if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
         alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
@@ -182,6 +197,7 @@
   </script>
 </body>
 </html>
+
 
 
 
