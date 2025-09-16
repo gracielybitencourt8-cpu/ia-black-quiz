@@ -11,200 +11,163 @@
     body{margin:0;font-family:"Orbitron",sans-serif;background:#000;color:#ffe8ed;overflow-x:hidden;}
     #matrix{position:fixed;inset:0;z-index:-2;background:#000;}
     .hud{position:sticky;top:0;z-index:30;background:rgba(0,0,0,.6);padding:8px 14px;display:flex;justify-content:center;font-size:14px;color:var(--neon);border-bottom:1px solid var(--neon2);}
-    .wrap{max-width:800px;margin:0 auto;padding:20px;}
-    .glass{background:rgba(0,0,0,.65);border:1px solid var(--neon2);border-radius:16px;padding:24px;margin:24px auto;}
-    .hero{text-align:center;margin-top:20vh;}
-    .hero h1{color:var(--neon);font-size:32px;text-shadow:0 0 12px var(--neon);}
-    .btn{background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;border:none;border-radius:16px;padding:14px 24px;margin-top:20px;cursor:pointer;box-shadow:0 0 20px var(--neon);}
-    .answers{display:grid;gap:12px;margin-top:16px;}
-    .answer{padding:14px;border-radius:12px;border:1px solid var(--neon2);background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;cursor:pointer;box-shadow:0 0 12px var(--neon);}
-    .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
-    .hidden{display:none!important}
-    blockquote{border:1px solid var(--neon2);border-radius:12px;padding:18px;margin:16px 0;font-style:italic;color:#ffb3c1;}
+    .wrap{max-width:800px;margin:auto;padding:40px 20px;}
+    h1,h2,h3{color:var(--neon);margin:20px 0;}
+    p{line-height:1.6;}
+    button,.btn{background:var(--neon);color:#000;font-weight:bold;padding:15px 25px;border:none;border-radius:8px;cursor:pointer;transition:.3s;font-family:"Orbitron",sans-serif;text-decoration:none;display:inline-block;}
+    button:hover,.btn:hover{background:var(--neon2);color:#fff;}
+    .section{padding:60px 20px;border-bottom:1px solid var(--neon2);}
+    .highlight{color:var(--neon2);font-weight:bold;}
+    .card{background:rgba(0,0,0,0.7);border:1px solid var(--neon2);border-radius:10px;padding:20px;margin:20px 0;box-shadow:0 0 20px rgba(255,43,77,.5);}
+    
+    /* ===== SEÇÃO FINAL ===== */
+    .bonus {
+      padding: 60px 20px;
+      background: #000;
+      color: #ffe8ed;
+      text-align: center;
+      border-top: 1px solid var(--neon2);
+    }
+
+    .bonus-box {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--neon);
+      border-radius: 10px;
+      box-shadow: 0 0 25px var(--neon2);
+    }
+
+    .bonus-icon {
+      font-size: 42px;
+      margin-bottom: 15px;
+      color: var(--neon);
+    }
+
+    .bonus-title {
+      font-size: 28px;
+      color: var(--neon);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .bonus-text {
+      font-size: 16px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .bonus-card {
+      background: rgba(255, 43, 77, 0.05);
+      border: 1px solid var(--neon2);
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .bonus-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .bonus-list li {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    .bonus-alert {
+      background: rgba(255, 50, 50, 0.1);
+      border: 1px solid #ff2b4d;
+      padding: 12px;
+      margin-bottom: 30px;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+
+    .btn-bonus {
+      display: inline-block;
+      background: var(--neon);
+      color: #000;
+      font-weight: bold;
+      padding: 15px 35px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    .btn-bonus:hover {
+      background: var(--neon2);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
   <canvas id="matrix"></canvas>
-  <div class="hud"><span id="xp">0 XP</span> | <span id="lvl">LVL 1</span></div>
+
+  <div class="hud">Protocolo Black • Diagnóstico</div>
 
   <div class="wrap">
-    <!-- Intro -->
-    <section id="intro" class="glass">
-      <div class="hero">
-        <h1>INICIANDO PROTOCOLO BLACK...</h1>
-        <p>Sistema carregado. Pressione para continuar.</p>
-        <button id="start" class="btn">INICIAR PROTOCOLO</button>
+    <!-- SEÇÕES VALIDADAS -->
+    <section class="section" id="diagnostico">
+      <h1>Diagnóstico Inicial</h1>
+      <p>Responda ao protocolo e avance para desbloquear seu acesso.</p>
+      <a class="btn" href="#provasocial">INICIAR</a>
+    </section>
+
+    <section id="provasocial" class="section">
+      <h2>Depoimentos</h2>
+      <div class="card">
+        <p>"O sistema mudou meu jogo. Nunca vi nada igual." – <span class="highlight">Membro Black</span></p>
       </div>
     </section>
 
-    <!-- Quiz -->
-    <form id="quiz" class="glass hidden"></form>
-
-    <!-- Apresentação -->
-    <section id="product" class="glass hidden">
-      <h2 style="color:var(--neon);text-align:center;">APRESENTAÇÃO DO PRODUTO</h2>
-      <div style="border:1px solid var(--neon);border-radius:12px;padding:18px;margin-bottom:22px;text-align:center;">
-        [BRIEFING PSICOLÓGICO INICIADO]<br><br>
-        O Protocolo Black foi projetado para transformar o jogo do Low Ticket.<br>
-        Esqueça depender de altos valores — aqui a escala é ilimitada.<br>
-        A IA trabalha no oculto, capturando dezenas de clientes por dia,<br>
-        sem bloqueios, sem esforço manual e sem margem para fracasso.
-      </div>
-      <div class="feature">⚡ Lança ofertas de baixo valor que giram sozinhas no automático</div>
-      <div class="feature">🎯 Escala no volume: dezenas de vendas por dia sem travar a operação</div>
-      <div class="feature">🧠 Cria copys persuasivas que transformam curiosos em compradores imediatos</div>
-      <div class="feature">🛡️ Opera no oculto: sem bloqueio, sem exposição, sem depender de sorte</div>
-      <div class="feature">⏰ Vendas 24/7 no piloto automático com ticket baixo e alto giro</div>
-      <div style="text-align:center;margin-top:20px;">
-        <button id="continue" type="button" class="btn">CONTINUAR PROTOCOLO</button>
-      </div>
+    <section class="section" id="confirma">
+      <h2>Confirmação Final</h2>
+      <p>Está pronto para confirmar seu acesso ao <span class="highlight">Protocolo Black</span>?</p>
+      <a class="btn" href="#acesso-secreto">CONFIRMAR</a>
     </section>
+  </div> <!-- fecha .wrap -->
 
-    <!-- Bônus -->
-    <section id="bonus" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">BÔNUS DESBLOQUEADO</h2>
-      <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">[CÓDIGO LOW TICKET ATIVADO]</p>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:30px;">
-        Se chegar até o fim, você desbloqueia um pacote secreto que transforma ofertas baratas em escala diária.
+  <!-- SEÇÃO FINAL -->
+  <section id="acesso-secreto" class="bonus">
+    <div class="bonus-box">
+      <div class="bonus-icon">🔓</div>
+      <h2 class="bonus-title">ACESSO SECRETO DESBLOQUEADO</h2>
+      <p class="bonus-text">
+        Ao confirmar sua entrada, você recebe 1 
+        <span class="highlight">Produto Validado</span> pronto para rodar no tráfego.<br>
+        Nada de testes. Nada de achismos. Só copiar e lucrar.
       </p>
-      <div class="feature">⚡ Prompts de Conversão (Low Ticket)</div>
-      <div class="feature">🎯 Funil Automático de Escala</div>
-      <div class="feature">🧠 Copy Hipnótica</div>
-      <div class="feature">🛡️ Campanhas Blindadas</div>
-      <div class="feature">👑 Comunidade Low Ticket</div>
-      <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="continue-elite">CONTINUAR PARA O FILTRO</button>
+
+      <div class="bonus-card">
+        <p>💣 <strong>Produto Low Ticket já configurado</strong></p>
+        <p>Com criativo e copy blindados.</p>
+        <p>Feito pra quem não quer perder tempo testando e já deseja faturar de imediato.</p>
       </div>
-    </section>
 
-    <!-- Filtro de Elite -->
-    <section id="elite" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">FILTRO DE ELITE</h2>
-      <p style="text-align:center; color:#ff6666; font-weight:700; margin-bottom:24px;">
-        Você está pronto para operar no Low Ticket como um BLACK, ou vai continuar sendo Nutella?
-      </p>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
-        ⚠️ Se não escolher <strong>"SOU BLACK"</strong>, o sistema bloqueia seu acesso.
-      </p>
-      <div class="answers">
-        <button type="button" class="answer">Prefiro continuar Nutella</button>
-        <button type="button" class="answer">Ainda não tenho certeza se mereço</button>
-        <button type="button" class="answer">Talvez um dia eu esteja pronto</button>
-        <button type="button" class="answer" id="sou-black">SOU BLACK — quero destravar o sistema agora</button>
+      <ul class="bonus-list">
+        <li>✅ Avanço imediato no jogo</li>
+        <li>✅ Copiar, colar e escalar</li>
+      </ul>
+
+      <div class="bonus-alert">
+        ⚠️ Esse acesso é exclusivo para membros ativos e será liberado apenas dentro da <span class="highlight">Área de Membros</span>.
       </div>
-    </section>
 
-    <!-- Depoimentos -->
-    <section id="depoimentos" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">DEPOIMENTOS DA DEEP WEB</h2>
-      <blockquote>"Depois que ativei o Protocolo Black, o Low Ticket virou uma máquina de escala infinita."<br><br>- Operador Anônimo #011</blockquote>
-      <blockquote>"Antes eu corria atrás de likes, agora eu corro atrás de PIX todo dia."<br><br>- Operador Anônimo #024</blockquote>
-      <blockquote>"Low Ticket no Black não é sobre vender, é sobre dominar o mercado sem ser visto."<br><br>- Operador Anônimo #037</blockquote>
-      <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="continuar-depoimentos">CONTINUAR PROTOCOLO</button>
-      </div>
-    </section>
+      <a href="#proximaEtapa" class="btn-bonus">🔻 QUERO DESBLOQUEAR MEU ACESSO COM BÔNUS</a>
+    </div>
+  </section>
 
-    <!-- Confirmação Final 1/2 -->
-    <section id="final" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 1/2</h2>
-      <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
-        👉 Você vai continuar mendigando likes ou vai ativar um sistema que coloca clientes no seu bolso todo dia?
-      </p>
-      <div class="answers">
-        <button type="button" class="answer">Prefiro likes de vaidade</button>
-        <button type="button" class="answer">Ainda estou na dúvida</button>
-        <button type="button" class="answer">Quero o acesso vitalício agora</button>
-        <button type="button" class="answer">DOMINAÇÃO TOTAL — clientes em escala diária</button>
-      </div>
-    </section>
-
-    <!-- Confirmação Final 2/2 -->
-    <section id="final2" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL - 2/2</h2>
-      <p style="text-align:center; margin:14px 0 20px; color:#ffe8ed;">
-        👉 Está pronto para largar as desculpas e assumir o comando da máquina de vendas Low Ticket?
-      </p>
-      <div class="answers">
-        <button type="button" class="answer">Ainda não — prefiro continuar no manual</button>
-        <button type="button" class="answer">Talvez — mas tenho receio de perder o controle</button>
-        <button type="button" class="answer">Sim — quero deixar a IA rodar por mim</button>
-        <button type="button" class="answer">Nasci pra isso — já entreguei tudo ao Black</button>
-      </div>
-    </section>
-
-    <!-- Lead -->
-    <section id="lead" class="glass hidden">
-      <h3>Quase lá — destrave seu acesso</h3>
-      <input id="nome" placeholder="Seu nome (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
-      <input id="whats" placeholder="Seu WhatsApp (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
-      <button id="finish" type="button" class="btn" style="width:100%;margin-top:16px;">LIBERAR ACESSO</button>
-    </section>
-  </div>
-
-  <script>
-    const moneySound=new Audio("https://www.myinstants.com/media/sounds/cash-register-cha-ching.mp3");
-
-    const QUESTIONS=[
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
-      {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você, mesmo sem entender toda a estratégia por trás?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
-      {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas de Low Ticket por dia no automático, você toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
-    ];
-
-    const quiz=document.getElementById("quiz"); let step=0,xp=0,lvl=1;
-    function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
-
-    function renderQuiz(){
-      quiz.innerHTML="";
-      QUESTIONS.forEach((q,i)=>{
-        const s=document.createElement("section");
-        s.dataset.step=i;s.className=i===0?"":"hidden";
-        s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3>
-        <p style="text-align:center;margin:14px 0 20px">${q.q}</p>
-        <div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;
-        quiz.appendChild(s);
-      });
-    }
-
-    document.getElementById("start").onclick=()=>{document.getElementById("intro").classList.add("hidden");quiz.classList.remove("hidden");renderQuiz();};
-
-    document.addEventListener("click",e=>{
-      if(e.target.classList.contains("answer") && e.target.closest("#quiz")){
-        moneySound.play();addXP(50);
-        quiz.children[step].classList.add("hidden");step++;
-        if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}
-        else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}
-      }
-      if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
-      if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
-      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("final").classList.remove("hidden");}
-      // Confirmação Final 1/2 → qualquer opção leva para 2/2
-      if(e.target.classList.contains("answer") && e.target.closest("#final")){
-        document.getElementById("final").classList.add("hidden");
-        document.getElementById("final2").classList.remove("hidden");
-      }
-      // Confirmação Final 2/2 → qualquer opção leva para Lead
-      if(e.target.classList.contains("answer") && e.target.closest("#final2")){
-        document.getElementById("final2").classList.add("hidden");
-        document.getElementById("lead").classList.remove("hidden");
-      }
-      if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
-        alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
-      }
-      if(e.target.id==="finish"){alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");}
-    });
-
-    // Matrix vermelho
-    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let w,h,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
-    function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
-    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
-  </script>
 </body>
 </html>
+
 
 
 
