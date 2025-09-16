@@ -105,6 +105,34 @@
       </div>
     </section>
 
+    <!-- Confirmação Final 1/2 -->
+    <section id="confirmacao1" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL — 1/2</h2>
+      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
+        Se tivesse que escolher agora: <strong>fama vazia</strong> ou <strong>lucro invisível</strong>?
+      </p>
+      <div class="answers">
+        <button type="button" class="answer">Prefiro fama</button>
+        <button type="button" class="answer">Não sei ainda</button>
+        <button type="button" class="answer">Lucro invisível</button>
+        <button type="button" class="answer" id="confirmacao1-dominacao">Quero o Sistema — DOMINAR AGORA</button>
+      </div>
+    </section>
+
+    <!-- Confirmação Final 2/2 -->
+    <section id="confirmacao2" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL — 2/2</h2>
+      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
+        O Sistema não aceita indecisos. Qual é a sua escolha final?
+      </p>
+      <div class="answers">
+        <button type="button" class="answer">Voltar para a mediocridade</button>
+        <button type="button" class="answer">Ficar em cima do muro</button>
+        <button type="button" class="answer">Desistir agora</button>
+        <button type="button" class="answer" id="confirmacao2-dominacao">⚡ DOMINAÇÃO TOTAL — Quero desbloquear</button>
+      </div>
+    </section>
+
     <!-- Protocolo Low Ticket -->
     <section id="lowticket" class="glass hidden">
       <h2 style="color:var(--neon); text-align:center;">PROTOCOLO LOW TICKET INICIADO</h2>
@@ -133,20 +161,6 @@
       <input id="nome" placeholder="Seu nome (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
       <input id="whats" placeholder="Seu WhatsApp (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
       <button id="finish" type="button" class="btn" style="width:100%;margin-top:16px;">LIBERAR ACESSO</button>
-    </section>
-
-    <!-- Confirmação Final -->
-    <section id="confirmacao" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL</h2>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
-        🚨 Última etapa do Protocolo Black. Confirme sua decisão:
-      </p>
-      <div class="answers">
-        <button type="button" class="answer">Quero continuar como estou</button>
-        <button type="button" class="answer">Não estou pronto para mudar</button>
-        <button type="button" class="answer">Talvez mais tarde eu volte</button>
-        <button type="button" class="answer" id="confirmar-black">🔥 LIBERAR O ACESSO ILEGAL AGORA</button>
-      </div>
     </section>
   </div>
 
@@ -189,21 +203,30 @@
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
+      
+      // depoimentos -> confirmacao1
+      if(e.target.id==="continuar-depoimentos"){
+        document.getElementById("depoimentos").classList.add("hidden");
+        document.getElementById("confirmacao1").classList.remove("hidden");
+      }
+      // confirmacao1 -> confirmacao2
+      if(e.target.closest && e.target.closest("#confirmacao1") && e.target.classList.contains("answer")){
+        document.getElementById("confirmacao1").classList.add("hidden");
+        document.getElementById("confirmacao2").classList.remove("hidden");
+        addXP(50); moneySound.play();
+      }
+      // confirmacao2 -> lowticket
+      if(e.target.closest && e.target.closest("#confirmacao2") && e.target.classList.contains("answer")){
+        document.getElementById("confirmacao2").classList.add("hidden");
+        document.getElementById("lowticket").classList.remove("hidden");
+        addXP(100); moneySound.play();
+      }
+
       if(e.target.id==="go-lead"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
       if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
         alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
       }
-      if(e.target.id==="finish"){
-        document.getElementById("lead").classList.add("hidden");
-        document.getElementById("confirmacao").classList.remove("hidden");
-      }
-      if(e.target.id==="confirmar-black"){
-        alert("✅ Confirmação registrada! (Aqui entra o redirecionamento para o checkout)");
-      }
-      if(e.target.classList.contains("answer") && e.target.closest("#confirmacao") && e.target.id!=="confirmar-black"){
-        alert("❌ Confirmação inválida! Apenas quem confirma o acesso ilegal pode prosseguir.");
-      }
+      if(e.target.id==="finish"){alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");}
     });
 
     // Matrix vermelho
@@ -213,6 +236,7 @@
   </script>
 </body>
 </html>
+
 
 
 
