@@ -16,6 +16,10 @@
     .hero{text-align:center;margin-top:20vh;}
     .hero h1{color:var(--neon);font-size:32px;text-shadow:0 0 12px var(--neon);}
     .btn{background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;border:none;border-radius:16px;padding:14px 24px;margin-top:20px;cursor:pointer;box-shadow:0 0 20px var(--neon);text-decoration:none;display:inline-block;max-width:320px;width:auto;white-space:normal;word-wrap:break-word;text-align:center;}
+    /* CTA verde neon */
+    .btn-cta{background:linear-gradient(90deg,#00ff88,#00ffaa)!important;color:#000;font-weight:900;border:none;border-radius:16px;padding:16px 26px;margin-top:20px;cursor:pointer;box-shadow:0 0 25px #00ffaa,0 0 45px #00ffaa inset;text-decoration:none;display:inline-block;max-width:340px;width:auto;white-space:normal;word-wrap:break-word;text-align:center;font-size:18px;transition:all 0.3s ease;}
+    .btn-cta:hover{background:#00ffaa;box-shadow:0 0 35px #00ffaa,0 0 65px #00ffaa inset;transform:scale(1.05);}
+    .btn-cta:active{transform:scale(0.97);box-shadow:0 0 15px #00ffaa,0 0 30px #00ffaa inset;}
     .answers{display:grid;gap:12px;margin-top:16px;}
     .answer{padding:14px;border-radius:12px;border:1px solid var(--neon2);background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;cursor:pointer;box-shadow:0 0 12px var(--neon);}
     .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
@@ -209,14 +213,14 @@
       <p style="text-align:center; color:#ff6666; font-weight:700;">⚠️ Oferta restrita. O acesso será cortado em poucas horas.</p>
       <p style="text-align:center; margin:20px 0; color:#fff;">🔴 Ao ativar, você renuncia à mediocridade, entra no oculto e executa no caos.</p>
       <div style="text-align:center; margin-top:28px;">
-        <a href="SEU_LINK_DO_CHECKOUT" class="btn">🟩 QUERO ATIVAR O PROTOCOLO AGORA</a>
+        <a href="SEU_LINK_DO_CHECKOUT" class="btn-cta">🟩 QUERO ATIVAR O PROTOCOLO AGORA</a>
       </div>
       <div style="text-align:center; margin-top:18px;">
         <button type="button" class="answer" id="ritual">💀 Prefiro continuar vendendo como um fraco</button>
       </div>
     </section>
 
-    <!-- Ritual de Rendição -->
+    <!-- Ritual -->
     <section id="rendicao" class="glass hidden">
       <h2 style="text-align:center; color:#ff4444;">☠️ VOCÊ ESCOLHEU SER UM VENDEDOR FRACO</h2>
       <p style="text-align:center; color:#ffb3c1;">
@@ -269,6 +273,7 @@
   </script>
 </body>
 </html>
+
 
 
 
