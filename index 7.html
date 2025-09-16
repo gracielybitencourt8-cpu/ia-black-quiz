@@ -14,13 +14,13 @@
     .wrap{max-width:800px;margin:auto;padding:40px 20px;}
     h1,h2,h3{color:var(--neon);margin:20px 0;}
     p{line-height:1.6;}
-    button,.btn{background:var(--neon);color:#000;font-weight:bold;padding:15px 25px;border:none;border-radius:8px;cursor:pointer;transition:.3s;font-family:"Orbitron",sans-serif;text-decoration:none;display:inline-block;}
+    button,.btn{background:var(--neon);color:#000;font-weight:bold;padding:15px 25px;border:none;border-radius:8px;cursor:pointer;transition:.3s;font-family:"Orbitron",sans-serif;}
     button:hover,.btn:hover{background:var(--neon2);color:#fff;}
     .section{padding:60px 20px;border-bottom:1px solid var(--neon2);}
     .highlight{color:var(--neon2);font-weight:bold;}
     .card{background:rgba(0,0,0,0.7);border:1px solid var(--neon2);border-radius:10px;padding:20px;margin:20px 0;box-shadow:0 0 20px rgba(255,43,77,.5);}
     
-    /* ===== SEÇÃO FINAL ===== */
+    /* ===== NOVA SEÇÃO FINAL ===== */
     .bonus {
       padding: 60px 20px;
       background: #000;
@@ -114,32 +114,34 @@
   <div class="hud">Protocolo Black • Diagnóstico</div>
 
   <div class="wrap">
-    <!-- SEÇÕES VALIDADAS -->
-    <section class="section" id="diagnostico">
+    <!-- Seções anteriores do seu funil aqui -->
+    <section class="section">
       <h1>Diagnóstico Inicial</h1>
       <p>Responda ao protocolo e avance para desbloquear seu acesso.</p>
-      <a class="btn" href="#provasocial">INICIAR</a>
+      <button class="btn">INICIAR</button>
     </section>
 
-    <section id="provasocial" class="section">
+    <section class="section">
       <h2>Depoimentos</h2>
       <div class="card">
         <p>"O sistema mudou meu jogo. Nunca vi nada igual." – <span class="highlight">Membro Black</span></p>
       </div>
     </section>
 
-    <section class="section" id="confirma">
+    <section class="section">
       <h2>Confirmação Final</h2>
       <p>Está pronto para confirmar seu acesso ao <span class="highlight">Protocolo Black</span>?</p>
-      <a class="btn" href="#acesso-secreto">CONFIRMAR</a>
+      <button class="btn">CONFIRMAR</button>
     </section>
-  </div> <!-- fecha .wrap -->
+  </div>
 
-  <!-- SEÇÃO FINAL -->
-  <section id="acesso-secreto" class="bonus">
+  <!-- ===================== -->
+  <!-- NOVA ÚLTIMA ETAPA -->
+  <!-- ===================== -->
+  <section id="bonus" class="bonus">
     <div class="bonus-box">
       <div class="bonus-icon">🔓</div>
-      <h2 class="bonus-title">ACESSO SECRETO DESBLOQUEADO</h2>
+      <h2 class="bonus-title">ACESSO SECRETO LIBERADO</h2>
       <p class="bonus-text">
         Ao entrar no Protocolo, você desbloqueia um
         <span class="highlight">Produto BLACK Validado</span> pronto para rodar no tráfego.<br>
@@ -162,12 +164,12 @@
         Apenas membros ativos recebem esse bônus dentro da <span class="highlight">Área Black</span>.
       </div>
 
-      <a href="#proximaEtapa" class="btn-bonus">🔻 QUERO DESBLOQUEAR MEU ACESSO COM BÔNUS</a>
+      <a href="#proximaEtapa" class="btn-bonus">🔻 QUERO DESBLOQUEAR MEU ACESSO</a>
     </div>
   </section>
-
 </body>
 </html>
+
 
 
 
