@@ -15,7 +15,7 @@
     .glass{background:rgba(0,0,0,.65);border:1px solid var(--neon2);border-radius:16px;padding:24px;margin:24px auto;}
     .hero{text-align:center;margin-top:20vh;}
     .hero h1{color:var(--neon);font-size:32px;text-shadow:0 0 12px var(--neon);}
-    .btn{background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;border:none;border-radius:16px;padding:14px 24px;margin-top:20px;cursor:pointer;box-shadow:0 0 20px var(--neon);}
+    .btn{background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;border:none;border-radius:16px;padding:14px 24px;margin-top:20px;cursor:pointer;box-shadow:0 0 20px var(--neon);text-decoration:none;display:inline-block;}
     .answers{display:grid;gap:12px;margin-top:16px;}
     .answer{padding:14px;border-radius:12px;border:1px solid var(--neon2);background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;cursor:pointer;box-shadow:0 0 12px var(--neon);}
     .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
@@ -38,16 +38,13 @@
     </section>
 
     <!-- Análise Psicológica -->
-    <section id="analise" class="glass hidden" style="text-align:center;">
-      <h2 style="color:var(--neon); margin-bottom:18px;">ANÁLISE DE PERFIL PSICOLÓGICO</h2>
-      <p id="analise-msg" style="color:#ffb3c1; margin-bottom:12px;">Escaneando padrões comportamentais...</p>
-      <div style="background:#111; border:1px solid var(--neon2); border-radius:12px; overflow:hidden; margin:10px auto; width:90%; max-width:500px; position:relative;">
-        <div id="progress-bar" style="background:var(--neon); height:20px; width:0%; transition:width 0.3s;"></div>
-        <span id="progress-text" style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-size:14px; font-weight:900; color:#000;">
-          0%
-        </span>
+    <section id="analise" class="glass hidden">
+      <h2 style="color:var(--neon);text-align:center;">🔎 ANÁLISE DE PERFIL PSICOLÓGICO</h2>
+      <p style="text-align:center;">Escaneando padrões comportamentais...</p>
+      <div style="background:#111;border:1px solid var(--neon2);border-radius:12px;height:30px;overflow:hidden;margin:20px 0;">
+        <div id="progress-bar" style="background:var(--neon);height:100%;width:0%;"></div>
       </div>
-      <button id="start-analise" class="btn" style="margin-top:28px;">INICIAR ANÁLISE PSICOLÓGICA</button>
+      <p id="analise-msg" style="text-align:center;color:#ffb3c1;">Iniciando análise psicológica...</p>
     </section>
 
     <!-- Quiz -->
@@ -73,7 +70,7 @@
       </div>
     </section>
 
-    <!-- Bônus (validado) -->
+    <!-- Bônus -->
     <section id="bonus" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">BÔNUS DESBLOQUEADO</h2>
       <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">[CÓDIGO LOW TICKET ATIVADO]</p>
@@ -119,30 +116,24 @@
     </section>
 
     <!-- Confirmação 1 -->
-    <section id="confirmacao1" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL — 1/2</h2>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
-        Se tivesse que escolher agora: <strong>fama vazia</strong> ou <strong>lucro invisível</strong>?
-      </p>
+    <section id="confirm1" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon);">CONFIRMAÇÃO FINAL - 1/2</h2>
+      <p style="text-align:center; margin:18px 0;">Você quer ter acesso vitalício ou correr atrás de like no Instagram?</p>
       <div class="answers">
-        <button type="button" class="answer">Prefiro fama</button>
-        <button type="button" class="answer">Não sei ainda</button>
-        <button type="button" class="answer">Lucro invisível</button>
-        <button type="button" class="answer" id="confirmacao1-dominacao">Quero o Sistema — DOMINAR AGORA</button>
+        <button type="button" class="answer">Likes no Instagram</button>
+        <button type="button" class="answer">Não sei</button>
+        <button type="button" class="answer">Acesso vitalício</button>
+        <button type="button" class="answer" id="dom-total">DOMINAÇÃO TOTAL</button>
       </div>
     </section>
 
     <!-- Confirmação 2 -->
-    <section id="confirmacao2" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL — 2/2</h2>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
-        O Sistema não aceita indecisos. Qual é a sua escolha final?
-      </p>
+    <section id="confirm2" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon);">CONFIRMAÇÃO FINAL - 2/2</h2>
+      <p style="text-align:center; margin:18px 0;">Você confirma que está pronto para desaparecer no oculto e faturar em silêncio?</p>
       <div class="answers">
-        <button type="button" class="answer">Voltar para a mediocridade</button>
-        <button type="button" class="answer">Ficar em cima do muro</button>
-        <button type="button" class="answer">Desistir agora</button>
-        <button type="button" class="answer" id="confirmacao2-dominacao">⚡ DOMINAÇÃO TOTAL — Quero desbloquear</button>
+        <button type="button" class="answer" id="confirma-sim">SIM, QUERO DESAPARECER</button>
+        <button type="button" class="answer">Ainda tenho dúvidas</button>
       </div>
     </section>
 
@@ -157,63 +148,102 @@
       <div class="feature">🎯 Infiltrar campanhas de baixo valor no leilão sem travar e sem bloqueio.</div>
       <div class="feature">🧠 Criar copys agressivas que fazem o lead comprar no susto.</div>
       <div class="feature">⏰ Vender 24/7 com ofertas de baixo valor, mas em alto volume.</div>
-
       <h3 style="color:var(--neon); text-align:center; margin-top:28px;">🔴 Arquivos Sujos do Low Ticket</h3>
       <div class="feature">🧠 Arquivo 01: 3 Prompts de Venda Instantânea (Low Ticket)</div>
       <div class="feature">🔥 Arquivo 02: Blueprint da Copy Agressiva de Ticket Baixo</div>
       <div class="feature">📎 Arquivo 03: Template de Anúncio Hipnótico para ofertas baratas</div>
-
       <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="go-arquivo">👉 LIBERAR O ARQUIVO OCULTO</button>
+        <button type="button" class="btn" id="go-arquivo">👉 LIBERAR O ACESSO ILEGAL AO LOW TICKET AGORA</button>
       </div>
     </section>
 
-    <!-- Arquivo Oculto (nova etapa) -->
+    <!-- Arquivo Oculto -->
     <section id="arquivo" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">🎁 ARQUIVO OCULTO DESBLOQUEADO</h2>
-      <p style="text-align:center; color:#ffb3c1; font-weight:700; margin-bottom:24px;">
-        Você atravessou a barreira. Agora recebe acesso a um <strong>Produto Low Ticket Secreto</strong>, pronto para ser lançado em tráfego imediato.
+      <h2 style="text-align:center; color:var(--neon);">📂 ARQUIVO OCULTO DESBLOQUEADO</h2>
+      <p style="text-align:center; color:#ffb3c1;">
+        Dentro do arquivo, você encontra segredos que fazem o Low Ticket girar sozinho e esmagar concorrência.
       </p>
-      <div style="border:1px solid var(--neon2); border-radius:12px; padding:18px; margin-bottom:22px; background:rgba(255,40,70,0.04);">
-        <p style="margin:0; color:#ffe8ed; text-align:center;">
-          💣 Produto Low Ticket pronto com criativo e copy hipnótica.<br>
-          🚀 Plug & Play: só ativar e começar a rodar.
-        </p>
-      </div>
-      <div class="feature">✅ Elimina semanas de teste</div>
-      <div class="feature">✅ Ativa vendas em poucas horas</div>
-      <div class="feature">✅ Escala de forma invisível</div>
-      <p style="text-align:center; color:#ff6666; font-weight:700; margin-top:18px;">
-        ⚠️ Este arquivo oculto só existe para quem chegou até aqui.
-      </p>
-      <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="go-lead">QUERO DESBLOQUEAR MEU ACESSO</button>
+      <div class="feature">⚡ Produto oculto pronto para rodar</div>
+      <div class="feature">🧠 Scripts não detectados pelo radar</div>
+      <div class="feature">🔥 Copy neural hipnótica</div>
+      <div class="feature">🎯 Missões de infiltração gamificadas</div>
+      <div style="text-align:center;margin-top:20px;">
+        <button type="button" class="btn" id="go-oferta">CONTINUAR PARA A OFERTA FINAL</button>
       </div>
     </section>
 
-    <!-- Lead -->
-    <section id="lead" class="glass hidden">
-      <h3>Quase lá — destrave seu acesso</h3>
-      <input id="nome" placeholder="Seu nome (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
-      <input id="whats" placeholder="Seu WhatsApp (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
-      <button id="finish" type="button" class="btn" style="width:100%;margin-top:16px;">LIBERAR ACESSO</button>
+    <!-- Oferta Final -->
+    <section id="oferta-final" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">
+        🔥 A decisão é agora.
+      </h2>
+      <p style="text-align:center; color:#fff; margin-bottom:14px;">
+        Ou você assume o controle do jogo no oculto…<br>
+        ❌ Ou continua preso no ciclo de promessas vazias.
+      </p>
+      <p style="text-align:center; color:#ffb3c1; margin:18px 0;">
+        O <strong>Protocolo Low Ticket Oculto</strong> não pede permissão.<br>
+        Ele invade o leilão, executa campanhas escondidas e dispara copys<br>
+        que deixam qualquer concorrente no chão.<br>
+        Quem ativa não joga limpo, joga pra dominar.
+      </p>
+      <h3 style="text-align:center; color:var(--neon2); margin:20px 0;">
+        Você recebe imediatamente:
+      </h3>
+      <div class="feature">🚀 1 Produto Low Ticket pronto para rodar hoje mesmo</div>
+      <div class="feature">⚡ Scripts de automação que não aparecem no radar</div>
+      <div class="feature">🧠 Copy neural com gatilhos de choque</div>
+      <div class="feature">🔥 Blueprint de vendas para escalar sem piedade</div>
+      <div class="feature">🎯 Missões gamificadas exclusivas</div>
+      <div class="feature">♾️ Acesso vitalício ao mecanismo</div>
+      <h3 style="text-align:center; color:var(--neon2); margin-top:28px;">
+        <span style="text-decoration:line-through; color:#ff6666;">De R$69,99</span><br>
+        👉 <span style="font-size:26px; color:var(--neon);">Por apenas R$47,00</span>
+      </h3>
+      <p style="text-align:center; color:#ff6666; font-weight:700;">
+        ⚠️ Oferta restrita. O acesso será cortado em poucas horas.
+      </p>
+      <p style="text-align:center; margin:20px 0; color:#fff;">
+        🔴 Ao ativar, você renuncia à mediocridade, entra no oculto e executa no caos.
+      </p>
+      <div style="text-align:center; margin-top:28px;">
+        <a href="SEU_LINK_DO_CHECKOUT" class="btn">🟩 QUERO ATIVAR O PROTOCOLO AGORA</a>
+      </div>
+      <div style="text-align:center; margin-top:18px;">
+        <button type="button" class="answer" id="ritual">💀 Prefiro continuar vendendo como um fraco</button>
+      </div>
+    </section>
+
+    <!-- Ritual de Rendição -->
+    <section id="rendicao" class="glass hidden">
+      <h2 style="text-align:center; color:#ff4444;">☠️ VOCÊ ESCOLHEU SER UM VENDEDOR FRACO</h2>
+      <p style="text-align:center; color:#ffb3c1;">
+        Ao invés de ativar o mecanismo que vende por você, preferiu continuar preso<br>
+        no ciclo de posts vazios e concorrência te esmagando em silêncio.
+      </p>
+      <h3 style="text-align:center; color:var(--neon); margin:20px 0;">O que isso significa:</h3>
+      <div class="feature">❌ Continua jogando dinheiro no tráfego sem retorno</div>
+      <div class="feature">❌ Perde tempo criando post que ninguém lê</div>
+      <div class="feature">❌ Confia mais em “dica de Reels” do que em IA de vendas</div>
+      <p style="text-align:center; color:#ffb3c1; margin:20px 0;">
+        Mas relaxa... até os fracos merecem uma segunda chance.<br>
+        ⚠️ O sistema ainda está aberto, mas por pouco tempo.
+      </p>
+      <div style="text-align:center; margin-top:28px;">
+        <a href="SEU_LINK_DO_CHECKOUT" class="btn">🔥 RECONHEÇO MEU ERRO. QUERO ATIVAR AGORA</a>
+      </div>
     </section>
   </div>
 
   <script>
-    const moneySound=new Audio("https://www.myinstants.com/media/sounds/cash-register-cha-ching.mp3");
+    const quiz=document.getElementById("quiz"); 
+    let step=0,xp=0,lvl=1;
+    function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
 
     const QUESTIONS=[
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
-      {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você, mesmo sem entender toda a estratégia por trás?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
-      {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas de Low Ticket por dia no automático, você toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 1/2", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca","Algumas vezes","Muitas vezes","Sempre"]},
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 2/2", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto","Não existe volta"]}
     ];
-
-    const quiz=document.getElementById("quiz"); let step=0,xp=0,lvl=1;
-    function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
 
     function renderQuiz(){
       quiz.innerHTML="";
@@ -227,76 +257,50 @@
       });
     }
 
+    // Início
     document.getElementById("start").onclick=()=>{
       document.getElementById("intro").classList.add("hidden");
       document.getElementById("analise").classList.remove("hidden");
+      let bar=0;
+      const msgs=["Iniciando análise psicológica...","Lendo seu perfil...","Decodificando padrões...","Carregando resultado..."];
+      let msgIndex=0;
+      const interval=setInterval(()=>{
+        if(bar>=100){clearInterval(interval);
+          document.getElementById("analise").classList.add("hidden");
+          quiz.classList.remove("hidden");renderQuiz();return;}
+        bar+=5;document.getElementById("progress-bar").style.width=bar+"%";
+        if(bar%25===0 && msgIndex<msgs.length){
+          document.getElementById("analise-msg").textContent=msgs[msgIndex++];
+        }
+      },500);
     };
 
     document.addEventListener("click",e=>{
-      // Análise
-      if(e.target.id==="start-analise"){
-        let bar=document.getElementById("progress-bar");
-        let msg=document.getElementById("analise-msg");
-        let percent=document.getElementById("progress-text");
-        let w=0;
-        const mensagens=[
-          "Escaneando padrões comportamentais...",
-          "Detectando gatilhos ocultos...",
-          "Analisando perfil psicológico...",
-          "Decifrando pontos cegos...",
-          "Preparando relatório final..."
-        ];
-        let etapa=0;
-        msg.textContent=mensagens[etapa];
-        percent.textContent="0%";
-        let interval=setInterval(()=>{
-          if(w>=100){
-            clearInterval(interval);
-            msg.textContent="✅ Análise concluída!";
-            percent.textContent="100%";
-            setTimeout(()=>{
-              document.getElementById("analise").classList.add("hidden");
-              document.getElementById("quiz").classList.remove("hidden");
-              step=0; renderQuiz();
-            },1000);
-          } else {
-            w+=5;
-            bar.style.width=w+"%";
-            percent.textContent=w+"%";
-            if(w%20===0&&etapa<mensagens.length-1){
-              etapa++; msg.textContent=mensagens[etapa];
-            }
-          }
-        },150);
-      }
-
-      // Quiz respostas
       if(e.target.classList.contains("answer") && e.target.closest("#quiz")){
-        moneySound.play();addXP(50);
+        addXP(50);
         quiz.children[step].classList.add("hidden");step++;
         if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}
         else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}
       }
-
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
-      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-      if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");}
-      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirmacao1").classList.remove("hidden");}
-      if(e.target.classList.contains("answer") && e.target.closest("#confirmacao1")){document.getElementById("confirmacao1").classList.add("hidden");document.getElementById("confirmacao2").classList.remove("hidden");}
-      if(e.target.classList.contains("answer") && e.target.closest("#confirmacao2")){document.getElementById("confirmacao2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
+      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");}
+      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirm1").classList.remove("hidden");}
+      if(e.target.closest("#confirm1") && e.target.classList.contains("answer")){document.getElementById("confirm1").classList.add("hidden");document.getElementById("confirm2").classList.remove("hidden");}
+      if(e.target.closest("#confirm2") && e.target.classList.contains("answer")){document.getElementById("confirm2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
       if(e.target.id==="go-arquivo"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("arquivo").classList.remove("hidden");}
-      if(e.target.id==="go-lead"){document.getElementById("arquivo").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
-      if(e.target.id==="finish"){alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");}
+      if(e.target.id==="go-oferta"){document.getElementById("arquivo").classList.add("hidden");document.getElementById("oferta-final").classList.remove("hidden");}
+      if(e.target.id==="ritual"){document.getElementById("oferta-final").classList.add("hidden");document.getElementById("rendicao").classList.remove("hidden");}
     });
 
-    // Matrix vermelho
-    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let W,H,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
-    function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;cols=Math.floor(W/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
-    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>H&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
+    // Matrix efeito
+    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let w,h,cols,drops;const fontSize=16;const glyphs="アカサタナ0123456789ZXCVBNM";
+    function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;cols=Math.floor(w/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
+    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,w,h);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>h&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
   </script>
 </body>
 </html>
+
 
 
 
