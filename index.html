@@ -40,6 +40,16 @@
     <!-- Quiz -->
     <form id="quiz" class="glass hidden"></form>
 
+    <!-- Análise de Perfil Psicológico -->
+    <section id="analise" class="glass hidden" style="text-align:center;">
+      <h2 style="color:var(--neon); margin-bottom:18px;">ANÁLISE DE PERFIL PSICOLÓGICO</h2>
+      <p id="analise-msg" style="color:#ffb3c1; margin-bottom:22px;">Escaneando padrões comportamentais...</p>
+      <div style="background:#111; border:1px solid var(--neon2); border-radius:12px; overflow:hidden; margin:20px auto; width:90%; max-width:500px;">
+        <div id="progress-bar" style="background:var(--neon); height:20px; width:0%; transition:width 0.3s;"></div>
+      </div>
+      <button id="start-analise" class="btn" style="margin-top:28px;">INICIAR ANÁLISE PSICOLÓGICA</button>
+    </section>
+
     <!-- Apresentação -->
     <section id="product" class="glass hidden">
       <h2 style="color:var(--neon);text-align:center;">APRESENTAÇÃO DO PRODUTO</h2>
@@ -198,30 +208,57 @@
         moneySound.play();addXP(50);
         quiz.children[step].classList.add("hidden");step++;
         if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}
-        else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}
+        else{quiz.classList.add("hidden");document.getElementById("analise").classList.remove("hidden");}
       }
+
+      // Iniciar análise -> progresso -> produto
+      if(e.target.id==="start-analise"){
+        let bar = document.getElementById("progress-bar");
+        let msg = document.getElementById("analise-msg");
+        let w = 0;
+        const mensagens = [
+          "Escaneando padrões comportamentais...",
+          "Detectando gatilhos ocultos...",
+          "Analisando perfil psicológico...",
+          "Decifrando pontos cegos...",
+          "Preparando relatório final..."
+        ];
+        let etapa = 0;
+        msg.textContent = mensagens[etapa];
+
+        let interval = setInterval(()=>{
+          if(w >= 100){
+            clearInterval(interval);
+            msg.textContent = "✅ Análise concluída!";
+            setTimeout(()=>{
+              document.getElementById("analise").classList.add("hidden");
+              document.getElementById("product").classList.remove("hidden");
+            },1000);
+          } else {
+            w += 5;
+            bar.style.width = w+"%";
+            if(w % 20 === 0 && etapa < mensagens.length-1){
+              etapa++;
+              msg.textContent = mensagens[etapa];
+            }
+          }
+        },150);
+      }
+
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-      
-      // depoimentos -> confirmacao1
-      if(e.target.id==="continuar-depoimentos"){
-        document.getElementById("depoimentos").classList.add("hidden");
-        document.getElementById("confirmacao1").classList.remove("hidden");
-      }
-      // confirmacao1 -> confirmacao2
+      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirmacao1").classList.remove("hidden");}
       if(e.target.closest && e.target.closest("#confirmacao1") && e.target.classList.contains("answer")){
         document.getElementById("confirmacao1").classList.add("hidden");
         document.getElementById("confirmacao2").classList.remove("hidden");
         addXP(50); moneySound.play();
       }
-      // confirmacao2 -> lowticket
       if(e.target.closest && e.target.closest("#confirmacao2") && e.target.classList.contains("answer")){
         document.getElementById("confirmacao2").classList.add("hidden");
         document.getElementById("lowticket").classList.remove("hidden");
         addXP(100); moneySound.play();
       }
-
       if(e.target.id==="go-lead"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
       if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
         alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
@@ -236,6 +273,7 @@
   </script>
 </body>
 </html>
+
 
 
 
