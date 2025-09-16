@@ -4,308 +4,209 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Protocolo Black • Diagnóstico</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
-  <style>
-    :root{--neon:#ff2b4d;--neon2:#ff4d6d;--bg:#000;}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:"Orbitron",sans-serif;background:#000;color:#ffe8ed;overflow-x:hidden;}
-    #matrix{position:fixed;inset:0;z-index:-2;background:#000;}
-    .hud{position:sticky;top:0;z-index:30;background:rgba(0,0,0,.6);padding:8px 14px;display:flex;justify-content:center;font-size:14px;color:var(--neon);border-bottom:1px solid var(--neon2);}
-    .wrap{max-width:800px;margin:0 auto;padding:20px;}
-    .glass{background:rgba(0,0,0,.65);border:1px solid var(--neon2);border-radius:16px;padding:24px;margin:24px auto;}
-    .hero{text-align:center;margin-top:20vh;}
-    .hero h1{color:var(--neon);font-size:32px;text-shadow:0 0 12px var(--neon);}
-    .btn{background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;border:none;border-radius:16px;padding:14px 24px;margin-top:20px;cursor:pointer;box-shadow:0 0 20px var(--neon);}
-    .answers{display:grid;gap:12px;margin-top:16px;}
-    .answer{padding:14px;border-radius:12px;border:1px solid var(--neon2);background:linear-gradient(90deg,var(--neon),var(--neon2));color:#000;font-weight:900;cursor:pointer;box-shadow:0 0 12px var(--neon);}
-    .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
-    .hidden{display:none!important}
-    blockquote{border:1px solid var(--neon2);border-radius:12px;padding:18px;margin:16px 0;font-style:italic;color:#ffb3c1;}
 
-    /* 🔥 Efeito neon ao clicar */
-    button:active { transform: scale(0.97); }
-    .btn, .answer { transition: all 0.2s ease; }
-    .click-effect {
-      box-shadow: 0 0 18px var(--neon2), 0 0 28px var(--neon);
+  <!-- 🔒 Anti-cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --neon: #ff2b4d;
+      --neon2: #ff4d6d;
+      --bg: #000;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Orbitron", sans-serif;
+      background: #000;
+      color: #ffe8ed;
+      overflow-x: hidden;
+    }
+
+    #matrix {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: #000;
+    }
+
+    .hud {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(0,0,0,.6);
+      padding: 8px 14px;
+      display: flex;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--neon);
+      border-bottom: 1px solid var(--neon2);
+    }
+
+    .wrap {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: var(--neon);
+      margin: 20px 0;
+    }
+
+    .box {
+      border: 1px solid var(--neon2);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    .price {
+      font-size: 22px;
+      margin: 15px 0;
+    }
+
+    .alerta {
+      color: yellow;
+      font-size: 16px;
+      margin: 15px 0;
+    }
+
+    .caos {
+      color: #fff;
+      background: rgba(255, 43, 77, .1);
+      padding: 12px;
+      border-radius: 6px;
+      margin: 15px 0;
+    }
+
+    /* Botão corrigido */
+    .btn-protocolo {
+      display: block;
+      width: 100%;
+      max-width: 320px;    /* limite fixo, não ocupa a tela toda */
+      margin: 20px auto;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-align: center;
+      color: #000;
+      background: linear-gradient(90deg, #00ff88, #00ffcc);
+      border: 2px solid #00ffaa;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00ffaa, 0 0 25px #00ffaa inset;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: normal;
+    }
+
+    .btn-protocolo:hover {
+      background: #00ffaa;
+      box-shadow: 0 0 25px #00ffaa, 0 0 45px #00ffaa inset;
       transform: scale(1.05);
+    }
+
+    .btn-protocolo:active {
+      transform: scale(0.97);
+      box-shadow: 0 0 10px #00ffaa, 0 0 20px #00ffaa inset;
+    }
+
+    .btn-negado {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      margin: 20px auto;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      color: #000;
+      background: #ff2b4d;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-negado:hover {
+      background: #ff4d6d;
     }
   </style>
 </head>
 <body>
   <canvas id="matrix"></canvas>
-  <div class="hud"><span id="xp">0 XP</span> | <span id="lvl">LVL 1</span></div>
+
+  <div class="hud">escalar sem piedade. <strong>400 XP | LVL 5</strong></div>
 
   <div class="wrap">
+    <div class="box">
+      <p>🎯 Missões gamificadas exclusivas.</p>
+    </div>
 
-    <!-- Intro -->
-    <section id="intro" class="glass">
-      <div class="hero">
-        <h1>INICIANDO PROTOCOLO BLACK...</h1>
-        <p>Sistema carregado. Pressione para continuar.</p>
-        <button id="start" class="btn">INICIAR PROTOCOLO</button>
-      </div>
-    </section>
+    <div class="box">
+      <p>♾️ Acesso vitalício ao mecanismo.</p>
+    </div>
 
-    <!-- Análise Psicológica -->
-    <section id="analise" class="glass hidden" style="text-align:center;">
-      <h2 style="color:var(--neon); margin-bottom:18px;">ANÁLISE DE PERFIL PSICOLÓGICO</h2>
-      <p id="analise-msg" style="color:#ffb3c1; margin-bottom:12px;">Escaneando padrões comportamentais...</p>
-      <div style="background:#111; border:1px solid var(--neon2); border-radius:12px; overflow:hidden; margin:10px auto; width:90%; max-width:500px; position:relative;">
-        <div id="progress-bar" style="background:var(--neon); height:20px; width:0%; transition:width 0.3s;"></div>
-        <span id="progress-text" style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-size:14px; font-weight:900; color:#000;">
-          0%
-        </span>
-      </div>
-      <button id="start-analise" class="btn" style="margin-top:28px;">INICIAR ANÁLISE PSICOLÓGICA</button>
-    </section>
+    <div class="price">
+      De <span style="color:red;">R$69,99</span> → <span style="color:lime;">R$47,00</span>
+    </div>
 
-    <!-- Quiz -->
-    <form id="quiz" class="glass hidden"></form>
+    <div class="alerta">
+      ⚠️ Oferta restrita. O acesso será cortado em poucas horas.
+    </div>
 
-    <!-- Produto -->
-    <section id="product" class="glass hidden">
-      <h2 style="color:var(--neon);text-align:center;">APRESENTAÇÃO DO PRODUTO</h2>
-      <div style="border:1px solid var(--neon);border-radius:12px;padding:18px;margin-bottom:22px;text-align:center;">
-        [BRIEFING PSICOLÓGICO INICIADO]<br><br>
-        O Protocolo Black foi projetado para transformar o jogo do Low Ticket.<br>
-        Esqueça depender de altos valores — aqui a escala é ilimitada.<br>
-        A IA trabalha no oculto, capturando dezenas de clientes por dia,<br>
-        sem bloqueios, sem esforço manual e sem margem para fracasso.
-      </div>
-      <div class="feature">⚡ Lança ofertas de baixo valor que giram sozinhas no automático</div>
-      <div class="feature">🎯 Escala no volume: dezenas de vendas por dia sem travar a operação</div>
-      <div class="feature">🧠 Cria copys persuasivas que transformam curiosos em compradores imediatos</div>
-      <div class="feature">🛡️ Opera no oculto: sem bloqueio, sem exposição, sem depender de sorte</div>
-      <div class="feature">⏰ Vendas 24/7 no piloto automático com ticket baixo e alto giro</div>
-      <div style="text-align:center;margin-top:20px;">
-        <button id="continue" type="button" class="btn">CONTINUAR PROTOCOLO</button>
-      </div>
-    </section>
+    <div class="caos">
+      🔴 Ao ativar, você renuncia à mediocridade, entra no oculto e executa no caos.
+    </div>
 
-    <!-- Bônus -->
-    <section id="bonus" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">BÔNUS DESBLOQUEADO</h2>
-      <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">[CÓDIGO LOW TICKET ATIVADO]</p>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:30px;">
-        Se chegar até o fim, você desbloqueia um pacote secreto que transforma ofertas baratas em escala diária.
-      </p>
-      <div class="feature">⚡ Prompts de Conversão (Low Ticket)</div>
-      <div class="feature">🎯 Funil Automático de Escala</div>
-      <div class="feature">🧠 Copy Hipnótica</div>
-      <div class="feature">🛡️ Campanhas Blindadas</div>
-      <div class="feature">👑 Comunidade Low Ticket</div>
-      <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="continue-elite">CONTINUAR PARA O FILTRO</button>
-      </div>
-    </section>
+    <!-- Botão corrigido -->
+    <a href="#" class="btn-protocolo">🚀 Ativar Protocolo Agora</a>
 
-    <!-- Elite -->
-    <section id="elite" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">FILTRO DE ELITE</h2>
-      <p style="text-align:center; color:#ff6666; font-weight:700; margin-bottom:24px;">
-        Você está pronto para operar no Low Ticket como um BLACK, ou vai continuar sendo Nutella?
-      </p>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
-        ⚠️ Se não escolher <strong>"SOU BLACK"</strong>, o sistema bloqueia seu acesso.
-      </p>
-      <div class="answers">
-        <button type="button" class="answer">Prefiro continuar Nutella</button>
-        <button type="button" class="answer">Ainda não tenho certeza se mereço</button>
-        <button type="button" class="answer">Talvez um dia eu esteja pronto</button>
-        <button type="button" class="answer" id="sou-black">SOU BLACK — quero destravar o sistema agora</button>
-      </div>
-    </section>
-
-    <!-- Depoimentos -->
-    <section id="depoimentos" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">DEPOIMENTOS DA DEEP WEB</h2>
-      <blockquote>"Depois que ativei o Protocolo Black, o Low Ticket virou uma máquina de escala infinita."<br><br>- Operador Anônimo #011</blockquote>
-      <blockquote>"Antes eu corria atrás de likes, agora eu corro atrás de PIX todo dia."<br><br>- Operador Anônimo #024</blockquote>
-      <blockquote>"Low Ticket no Black não é sobre vender, é sobre dominar o mercado sem ser visto."<br><br>- Operador Anônimo #037</blockquote>
-      <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="continuar-depoimentos">CONTINUAR PROTOCOLO</button>
-      </div>
-    </section>
-
-    <!-- Confirmação 1 -->
-    <section id="confirmacao1" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL — 1/2</h2>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
-        Se tivesse que escolher agora: <strong>fama vazia</strong> ou <strong>lucro invisível</strong>?
-      </p>
-      <div class="answers">
-        <button type="button" class="answer">Prefiro fama</button>
-        <button type="button" class="answer">Não sei ainda</button>
-        <button type="button" class="answer">Lucro invisível</button>
-        <button type="button" class="answer" id="confirmacao1-dominacao">Quero o Sistema — DOMINAR AGORA</button>
-      </div>
-    </section>
-
-    <!-- Confirmação 2 -->
-    <section id="confirmacao2" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL — 2/2</h2>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
-        O Sistema não aceita indecisos. Qual é a sua escolha final?
-      </p>
-      <div class="answers">
-        <button type="button" class="answer">Voltar para a mediocridade</button>
-        <button type="button" class="answer">Ficar em cima do muro</button>
-        <button type="button" class="answer">Desistir agora</button>
-        <button type="button" class="answer" id="confirmacao2-dominacao">⚡ DOMINAÇÃO TOTAL — Quero desbloquear</button>
-      </div>
-    </section>
-
-    <!-- Low Ticket -->
-    <section id="lowticket" class="glass hidden">
-      <h2 style="color:var(--neon); text-align:center;">PROTOCOLO LOW TICKET INICIADO</h2>
-      <p style="text-align:center; margin:18px 0; color:#ffe8ed;">
-        “Tu não desbloqueou um curso qualquer. Tu soltou o mecanismo que faltava pra dominar o jogo do Low Ticket.<br>
-        Esquece likes, esquece promessas vazias. Aqui é venda todo dia, no oculto — sem bloqueios, sem rosto, sem misericórdia.”
-      </p>
-      <div class="feature">⚡ Dominar a arte de montar funis de ticket baixo que giram sozinhos e esmagam objeções.</div>
-      <div class="feature">🎯 Infiltrar campanhas de baixo valor no leilão sem travar e sem bloqueio.</div>
-      <div class="feature">🧠 Criar copys agressivas que fazem o lead comprar no susto.</div>
-      <div class="feature">⏰ Vender 24/7 com ofertas de baixo valor, mas em alto volume.</div>
-
-      <h3 style="color:var(--neon); text-align:center; margin-top:28px;">🔴 Arquivos Sujos do Low Ticket</h3>
-      <div class="feature">🧠 Arquivo 01: 3 Prompts de Venda Instantânea (Low Ticket)</div>
-      <div class="feature">🔥 Arquivo 02: Blueprint da Copy Agressiva de Ticket Baixo</div>
-      <div class="feature">📎 Arquivo 03: Template de Anúncio Hipnótico para ofertas baratas</div>
-
-      <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="go-arquivo">👉 LIBERAR O ARQUIVO OCULTO</button>
-      </div>
-    </section>
-
-    <!-- Arquivo Oculto -->
-    <section id="arquivo" class="glass hidden">
-      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">🎁 ARQUIVO OCULTO DESBLOQUEADO</h2>
-      <p style="text-align:center; color:#ffb3c1; font-weight:700; margin-bottom:24px;">
-        Você atravessou a barreira. Agora recebe acesso a um <strong>Produto Low Ticket Secreto</strong>, pronto para ser lançado em tráfego imediato.
-      </p>
-      <div style="border:1px solid var(--neon2); border-radius:12px; padding:18px; margin-bottom:22px; background:rgba(255,40,70,0.04);">
-        <p style="margin:0; color:#ffe8ed; text-align:center;">
-          💣 Produto Low Ticket pronto com criativo e copy hipnótica.<br>
-          🚀 Plug & Play: só ativar e começar a rodar.
-        </p>
-      </div>
-      <div class="feature">✅ Elimina semanas de teste</div>
-      <div class="feature">✅ Ativa vendas em poucas horas</div>
-      <div class="feature">✅ Escala de forma invisível</div>
-      <p style="text-align:center; color:#ff6666; font-weight:700; margin-top:18px;">
-        ⚠️ Este arquivo oculto só existe para quem chegou até aqui.
-      </p>
-      <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="go-oferta">QUERO DESBLOQUEAR MEU ACESSO</button>
-      </div>
-    </section>
-
-    <!-- Oferta Final -->
-    <section id="oferta-final" class="glass hidden">
-      <h2 style="color:var(--neon); text-align:center; margin-bottom:18px;">🔥 A DECISÃO É AGORA</h2>
-      <p style="text-align:center; color:#ffe8ed; margin-bottom:18px;">
-        Ou você assume o controle do jogo no oculto...<br>
-        ❌ Ou continua preso no ciclo de promessas vazias.
-      </p>
-      <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
-        O Protocolo Low Ticket Oculto não pede permissão.<br>
-        Ele invade o leilão, executa campanhas escondidas e dispara copys que deixam qualquer concorrente no chão.<br>
-        Quem ativa não joga limpo, joga pra dominar.
-      </p>
-      <div class="feature">🚀 1 Produto Low Ticket pronto para rodar hoje mesmo.</div>
-      <div class="feature">⚡ Scripts de automação que não aparecem no radar.</div>
-      <div class="feature">🧠 Copy neural com gatilhos de choque.</div>
-      <div class="feature">🔥 Blueprint de vendas para escalar sem piedade.</div>
-      <div class="feature">🎯 Missões gamificadas exclusivas.</div>
-      <div class="feature">♾️ Acesso vitalício ao mecanismo.</div>
-      <h3 style="color:var(--neon); text-align:center; margin-top:28px;">
-        De R$69,99 → <span style="color:#0f0;">R$47,00</span>
-      </h3>
-      <p style="text-align:center; color:#ff6666; margin-top:12px;">⚠️ Oferta restrita. O acesso será cortado em poucas horas.</p>
-      <p style="text-align:center; color:#ffe8ed; font-weight:700; margin:20px 0;">
-        🔴 Ao ativar, você renuncia à mediocridade, entra no oculto e executa no caos.
-      </p>
-      <div style="text-align:center; margin-top:28px;">
-        <a href="SEU_LINK_DO_CHECKOUT" class="btn" style="background:linear-gradient(90deg,#00ff88,#00cc66);">🟩 QUERO ATIVAR O PROTOCOLO AGORA</a>
-      </div>
-      <div style="text-align:center; margin-top:18px;">
-        <button type="button" class="btn" id="ritual">Prefiro continuar vendendo como um fraco</button>
-      </div>
-    </section>
-
-    <!-- Rendição -->
-    <section id="rendicao" class="glass hidden">
-      <h2 style="color:var(--neon); text-align:center; margin-bottom:18px;">VOCÊ ESCOLHEU O CAMINHO FRACO</h2>
-      <p style="text-align:center; color:#ffe8ed; margin-bottom:18px;">
-        Continuar preso no ciclo de posts vazios e concorrência esmagando você no escuro.
-      </p>
-      <div class="feature">❌ Continua jogando dinheiro no tráfego sem retorno</div>
-      <div class="feature">❌ Perde tempo criando post que ninguém lê</div>
-      <div class="feature">❌ Confia mais em “dica de Reels” do que em IA de vendas</div>
-      <p style="text-align:center; color:#ffb3c1; margin:20px 0;">
-        Mas relaxa... até os fracos merecem uma segunda chance.<br>
-        ⚠️ O sistema ainda está aberto, mas por pouco tempo.
-      </p>
-      <div style="text-align:center; margin-top:28px;">
-        <a href="SEU_LINK_DO_CHECKOUT" class="btn">🔥 RECONHEÇO MEU ERRO. QUERO ATIVAR AGORA</a>
-      </div>
-    </section>
-
-    <!-- Lead -->
-    <section id="lead" class="glass hidden">
-      <h3>Quase lá — destrave seu acesso</h3>
-      <input id="nome" placeholder="Seu nome (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
-      <input id="whats" placeholder="Seu WhatsApp (opcional)" style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid var(--neon2);" />
-      <button id="finish" type="button" class="btn" style="width:100%;margin-top:16px;">LIBERAR ACESSO</button>
-    </section>
+    <!-- Botão de recusa -->
+    <div class="btn-negado">Prefiro continuar vendendo como um fraco</div>
   </div>
 
   <script>
-    const moneySound=new Audio("https://www.myinstants.com/media/sounds/cash-register-cha-ching.mp3");
-    const QUESTIONS=[
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
-      {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
-      {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas por dia no automático, toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
-    ];
-    const quiz=document.getElementById("quiz"); let step=0,xp=0,lvl=1;
-    function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
-    function renderQuiz(){quiz.innerHTML="";QUESTIONS.forEach((q,i)=>{const s=document.createElement("section");s.dataset.step=i;s.className=i===0?"":"hidden";s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3>
-      <p style="text-align:center;margin:14px 0 20px">${q.q}</p>
-      <div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;quiz.appendChild(s);});}
-    document.getElementById("start").onclick=()=>{document.getElementById("intro").classList.add("hidden");document.getElementById("analise").classList.remove("hidden");};
-    document.addEventListener("click",e=>{
-      if(e.target.id==="start-analise"){let bar=document.getElementById("progress-bar");let msg=document.getElementById("analise-msg");let percent=document.getElementById("progress-text");let w=0;const mensagens=["Escaneando padrões...","Detectando gatilhos ocultos...","Analisando perfil...","Decifrando pontos cegos...","Preparando relatório final..."];let etapa=0;msg.textContent=mensagens[etapa];percent.textContent="0%";let interval=setInterval(()=>{if(w>=100){clearInterval(interval);msg.textContent="✅ Análise concluída!";percent.textContent="100%";setTimeout(()=>{document.getElementById("analise").classList.add("hidden");quiz.classList.remove("hidden");step=0;renderQuiz();},1000);} else {w+=5;bar.style.width=w+"%";percent.textContent=w+"%";if(w%20===0&&etapa<mensagens.length-1){etapa++;msg.textContent=mensagens[etapa];}}},150);}
-      if(e.target.classList.contains("answer") && e.target.closest("#quiz")){moneySound.play();addXP(50);quiz.children[step].classList.add("hidden");step++;if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}}
-      if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
-      if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
-      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
-      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirmacao1").classList.remove("hidden");}
-      if(e.target.closest("#confirmacao1") && e.target.classList.contains("answer")){document.getElementById("confirmacao1").classList.add("hidden");document.getElementById("confirmacao2").classList.remove("hidden");}
-      if(e.target.closest("#confirmacao2") && e.target.classList.contains("answer")){document.getElementById("confirmacao2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
-      if(e.target.id==="go-arquivo"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("arquivo").classList.remove("hidden");}
-      if(e.target.id==="go-oferta"){document.getElementById("arquivo").classList.add("hidden");document.getElementById("oferta-final").classList.remove("hidden");}
-      if(e.target.id==="ritual"){document.getElementById("oferta-final").classList.add("hidden");document.getElementById("rendicao").classList.remove("hidden");}
-      if(e.target.id==="finish"){alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");}
-    });
+    // Matrix efeito fundo
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
 
-    // Matrix vermelho
-    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let W,H,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
-    function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;cols=Math.floor(W/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
-    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>H&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
-    // 🔥 Efeito de clique em todos os botões
-    document.querySelectorAll("button").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        btn.classList.add("click-effect");
-        setTimeout(()=>btn.classList.remove("click-effect"), 300);
-      });
-    });
+    const chars = "アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const font_size = 14;
+    const columns = canvas.width / font_size;
+    const drops = [];
+
+    for(let x = 0; x < columns; x++) drops[x] = 1;
+
+    function draw() {
+      ctx.fillStyle = "rgba(0,0,0,0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#ff2b4d";
+      ctx.font = font_size + "px monospace";
+
+      for(let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+        if(drops[i] * font_size > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 35);
   </script>
 </body>
 </html>
+
 
 
 
