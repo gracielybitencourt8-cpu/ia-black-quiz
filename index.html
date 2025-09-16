@@ -37,7 +37,7 @@
       </div>
     </section>
 
-    <!-- Análise de Perfil Psicológico -->
+    <!-- Análise Psicológica -->
     <section id="analise" class="glass hidden" style="text-align:center;">
       <h2 style="color:var(--neon); margin-bottom:18px;">ANÁLISE DE PERFIL PSICOLÓGICO</h2>
       <p id="analise-msg" style="color:#ffb3c1; margin-bottom:12px;">Escaneando padrões comportamentais...</p>
@@ -53,7 +53,7 @@
     <!-- Quiz -->
     <form id="quiz" class="glass hidden"></form>
 
-    <!-- Apresentação -->
+    <!-- Produto -->
     <section id="product" class="glass hidden">
       <h2 style="color:var(--neon);text-align:center;">APRESENTAÇÃO DO PRODUTO</h2>
       <div style="border:1px solid var(--neon);border-radius:12px;padding:18px;margin-bottom:22px;text-align:center;">
@@ -73,7 +73,7 @@
       </div>
     </section>
 
-    <!-- Bônus -->
+    <!-- Bônus (validado) -->
     <section id="bonus" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">BÔNUS DESBLOQUEADO</h2>
       <p style="text-align:center; color:#ffcccf; font-weight:700; margin-bottom:24px;">[CÓDIGO LOW TICKET ATIVADO]</p>
@@ -90,7 +90,7 @@
       </div>
     </section>
 
-    <!-- Filtro de Elite -->
+    <!-- Elite -->
     <section id="elite" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">FILTRO DE ELITE</h2>
       <p style="text-align:center; color:#ff6666; font-weight:700; margin-bottom:24px;">
@@ -118,7 +118,7 @@
       </div>
     </section>
 
-    <!-- Confirmação Final 1/2 -->
+    <!-- Confirmação 1 -->
     <section id="confirmacao1" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL — 1/2</h2>
       <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
@@ -132,7 +132,7 @@
       </div>
     </section>
 
-    <!-- Confirmação Final 2/2 -->
+    <!-- Confirmação 2 -->
     <section id="confirmacao2" class="glass hidden">
       <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">CONFIRMAÇÃO FINAL — 2/2</h2>
       <p style="text-align:center; color:#ffb3c1; margin-bottom:24px;">
@@ -146,7 +146,7 @@
       </div>
     </section>
 
-    <!-- Protocolo Low Ticket -->
+    <!-- Low Ticket -->
     <section id="lowticket" class="glass hidden">
       <h2 style="color:var(--neon); text-align:center;">PROTOCOLO LOW TICKET INICIADO</h2>
       <p style="text-align:center; margin:18px 0; color:#ffe8ed;">
@@ -164,7 +164,30 @@
       <div class="feature">📎 Arquivo 03: Template de Anúncio Hipnótico para ofertas baratas</div>
 
       <div style="text-align:center; margin-top:28px;">
-        <button type="button" class="btn" id="go-lead">👉 LIBERAR O ACESSO ILEGAL AO LOW TICKET AGORA</button>
+        <button type="button" class="btn" id="go-arquivo">👉 LIBERAR O ARQUIVO OCULTO</button>
+      </div>
+    </section>
+
+    <!-- Arquivo Oculto (nova etapa) -->
+    <section id="arquivo" class="glass hidden">
+      <h2 style="text-align:center; color:var(--neon); margin-bottom:18px;">🎁 ARQUIVO OCULTO DESBLOQUEADO</h2>
+      <p style="text-align:center; color:#ffb3c1; font-weight:700; margin-bottom:24px;">
+        Você atravessou a barreira. Agora recebe acesso a um <strong>Produto Low Ticket Secreto</strong>, pronto para ser lançado em tráfego imediato.
+      </p>
+      <div style="border:1px solid var(--neon2); border-radius:12px; padding:18px; margin-bottom:22px; background:rgba(255,40,70,0.04);">
+        <p style="margin:0; color:#ffe8ed; text-align:center;">
+          💣 Produto Low Ticket pronto com criativo e copy hipnótica.<br>
+          🚀 Plug & Play: só ativar e começar a rodar.
+        </p>
+      </div>
+      <div class="feature">✅ Elimina semanas de teste</div>
+      <div class="feature">✅ Ativa vendas em poucas horas</div>
+      <div class="feature">✅ Escala de forma invisível</div>
+      <p style="text-align:center; color:#ff6666; font-weight:700; margin-top:18px;">
+        ⚠️ Este arquivo oculto só existe para quem chegou até aqui.
+      </p>
+      <div style="text-align:center; margin-top:28px;">
+        <button type="button" class="btn" id="go-lead">QUERO DESBLOQUEAR MEU ACESSO</button>
       </div>
     </section>
 
@@ -204,14 +227,13 @@
       });
     }
 
-    // Intro -> Análise
     document.getElementById("start").onclick=()=>{
       document.getElementById("intro").classList.add("hidden");
       document.getElementById("analise").classList.remove("hidden");
     };
 
     document.addEventListener("click",e=>{
-      // Análise -> Quiz
+      // Análise
       if(e.target.id==="start-analise"){
         let bar=document.getElementById("progress-bar");
         let msg=document.getElementById("analise-msg");
@@ -256,56 +278,16 @@
         else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}
       }
 
-      // Produto -> Bônus
-      if(e.target.id==="continue"){
-        document.getElementById("product").classList.add("hidden");
-        document.getElementById("bonus").classList.remove("hidden");
-      }
-
-      // Bônus -> Elite
-      if(e.target.id==="continue-elite"){
-        document.getElementById("bonus").classList.add("hidden");
-        document.getElementById("elite").classList.remove("hidden");
-      }
-
-      // Elite -> Depoimentos
-      if(e.target.id==="sou-black"){
-        document.getElementById("elite").classList.add("hidden");
-        document.getElementById("depoimentos").classList.remove("hidden");
-        addXP(100);
-      }
-      if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){
-        alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");
-      }
-
-      // Depoimentos -> Confirmação 1
-      if(e.target.id==="continuar-depoimentos"){
-        document.getElementById("depoimentos").classList.add("hidden");
-        document.getElementById("confirmacao1").classList.remove("hidden");
-      }
-
-      // Confirmação 1 -> Confirmação 2
-      if(e.target.classList.contains("answer") && e.target.closest("#confirmacao1")){
-        document.getElementById("confirmacao1").classList.add("hidden");
-        document.getElementById("confirmacao2").classList.remove("hidden");
-      }
-
-      // Confirmação 2 -> Lowticket
-      if(e.target.classList.contains("answer") && e.target.closest("#confirmacao2")){
-        document.getElementById("confirmacao2").classList.add("hidden");
-        document.getElementById("lowticket").classList.remove("hidden");
-      }
-
-      // Lowticket -> Lead
-      if(e.target.id==="go-lead"){
-        document.getElementById("lowticket").classList.add("hidden");
-        document.getElementById("lead").classList.remove("hidden");
-      }
-
-      // Finalizar -> Checkout
-      if(e.target.id==="finish"){
-        alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");
-      }
+      if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
+      if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
+      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");addXP(100);}
+      if(e.target.classList.contains("answer") && e.target.closest("#elite") && e.target.id!=="sou-black"){alert("❌ Acesso bloqueado! Apenas BLACKS passam pelo filtro.");}
+      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirmacao1").classList.remove("hidden");}
+      if(e.target.classList.contains("answer") && e.target.closest("#confirmacao1")){document.getElementById("confirmacao1").classList.add("hidden");document.getElementById("confirmacao2").classList.remove("hidden");}
+      if(e.target.classList.contains("answer") && e.target.closest("#confirmacao2")){document.getElementById("confirmacao2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
+      if(e.target.id==="go-arquivo"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("arquivo").classList.remove("hidden");}
+      if(e.target.id==="go-lead"){document.getElementById("arquivo").classList.add("hidden");document.getElementById("lead").classList.remove("hidden");}
+      if(e.target.id==="finish"){alert("✅ Acesso liberado! (aqui entra o link do checkout futuramente)");}
     });
 
     // Matrix vermelho
@@ -315,6 +297,7 @@
   </script>
 </body>
 </html>
+
 
 
 
