@@ -240,40 +240,163 @@
   </div>
 
   <script>
-    // 🔊 Som hacker forte
-    const clickSound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-changing-tab-206.wav");
-    function playSound(){try{clickSound.currentTime=0;clickSound.play();}catch(e){}}
+    /* ===========================
+       Som: desbloqueio + playback robusto
+       - Não mexi em nenhum texto/ordem (apenas script adicionado).
+       - Estratégia: inicializar AudioContext no primeiro gesto do usuário,
+         depois tocar BufferSource a cada clique (permite overlap).
+       =========================== */
 
-    const QUESTIONS=[
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 1/4",q:"Quantas vezes você já sentiu que fracassou tentando vender?",a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4",q:"O que você sente quando vê pessoas comuns faturando mais do que você?",a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4",q:"Você prefere manipular o jogo ou ser manipulado por ele?",a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4",q:"Você está pronto para entrar no sistema e nunca mais sair?",a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
-      {title:"MICRO-COMPROMETIMENTO - 1/2",q:"Você deixaria a IA rodar ofertas de Low Ticket para você?",a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
-      {title:"MICRO-COMPROMETIMENTO - 2/2",q:"Se pudesse escalar dezenas de vendas por dia no automático, toparia liberar o sistema agora?",a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
-    ];
-    const quiz=document.getElementById("quiz");let step=0,xp=0,lvl=1;
+    // URL do efeito sonoro hacker (pode trocar depois se quiser)
+    const SOUND_URL = "https://assets.mixkit.co/sfx/preview/mixkit-game-interface-small-2433.mp3";
+
+    // Áudio via WebAudio (melhor para overlap e controle)
+    let audioCtx = null;
+    let clickBuffer = null;
+    let audioReady = false;
+    let initInProgress = false;
+
+    async function initAudioOnce() {
+      if (audioReady || initInProgress) return;
+      initInProgress = true;
+      try {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // fetch audio data
+        const res = await fetch(SOUND_URL);
+        const arrayBuffer = await res.arrayBuffer();
+        clickBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+        audioReady = true;
+      } catch (err) {
+        // fallback: mark not ready (we'll try HTMLAudio fallback)
+        console.warn("initAudioOnce error:", err);
+        audioReady = false;
+      } finally {
+        initInProgress = false;
+      }
+    }
+
+    // Play the sound (uses WebAudio BufferSource so multiple playbacks overlap)
+    function playClickSound() {
+      if (audioCtx && clickBuffer) {
+        try {
+          // resume context in case it's suspended (mobile)
+          if (audioCtx.state === "suspended") {
+            audioCtx.resume().catch(()=>{/*ignore*/});
+          }
+          const src = audioCtx.createBufferSource();
+          src.buffer = clickBuffer;
+          const gain = audioCtx.createGain();
+          gain.gain.value = 1.0; // forte
+          src.connect(gain);
+          gain.connect(audioCtx.destination);
+          src.start(0);
+          return;
+        } catch (e) {
+          console.warn("WebAudio play error:", e);
+        }
+      }
+
+      // fallback to HTMLAudio if WebAudio not available
+      try {
+        const a = new Audio(SOUND_URL);
+        a.volume = 1.0;
+        a.play().catch(()=>{/*ignore*/});
+      } catch (e) {
+        // silent fail
+      }
+    }
+
+    // On the first user gesture we initialize the audio so browsers allow playback.
+    // Use pointerdown/touchstart/click to be robust.
+    function unlockAudioAndMaybePlay(e) {
+      // initialize once
+      if (!audioReady && !initInProgress) {
+        initAudioOnce().then(()=> {
+          // after initializing, play for the gesture that unlocked if desired
+          // but only if event comes from a user-initiated clickable element
+        });
+      }
+      // we still want to play on the first gesture (some browsers allow immediate play if triggered by event)
+      // Play sound for clicks on interactive elements (buttons, links, answers, headings, paragraphs)
+      const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : "";
+      const clickable = ["BUTTON","A","P","H1","H2","H3","SPAN","LI","DIV"].includes(tag) || e.target.classList && (e.target.classList.contains("answer") || e.target.classList.contains("btn") || e.target.classList.contains("btn-cta"));
+      if (clickable) {
+        // ensure audio context resumed if it's suspended
+        if (audioCtx && audioCtx.state === "suspended") {
+          audioCtx.resume().catch(()=>{/*ignore*/});
+        }
+        playClickSound();
+      }
+    }
+
+    // Attach short-lived listeners that run once to initialize audio
+    function attachInitialUnlockListeners() {
+      const unlock = (e) => {
+        unlockAudioAndMaybePlay(e);
+        // remove the initial listeners after first gesture(s)
+        document.removeEventListener("pointerdown", unlock);
+        document.removeEventListener("touchstart", unlock);
+        document.removeEventListener("click", unlock);
+      };
+      document.addEventListener("pointerdown", unlock, {passive:true});
+      document.addEventListener("touchstart", unlock, {passive:true});
+      document.addEventListener("click", unlock, {passive:true});
+    }
+
+    // Call attach on load so first gesture unlocks audio
+    attachInitialUnlockListeners();
+
+    // Global click handler: play sound on all relevant clicks (buttons, links, answers, and clickable text)
+    document.addEventListener("click", function(e) {
+      try {
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : "";
+        const isInteractive = ["BUTTON","A","INPUT","LABEL","SELECT","TEXTAREA"].includes(tag) ||
+                              (e.target.classList && (e.target.classList.contains("answer") || e.target.classList.contains("btn") || e.target.classList.contains("btn-cta")));
+        // also consider clickable paragraphs or headings (user asked "efeito em qualquer texto")
+        const clickableText = ["P","H1","H2","H3","SPAN","LI","DIV"].includes(tag) && e.target.onclick;
+        if (isInteractive || clickableText) {
+          playClickSound();
+        } else {
+          // Also play for answers inside quiz (they have class .answer) even when not a BUTTON element
+          if (e.target.classList && e.target.classList.contains("answer")) {
+            playClickSound();
+          }
+        }
+      } catch (err) {
+        // no-op
+      }
+    }, true);
+
+    /* ===========================
+       Remainder of original behavior (quiz flow + matrix)
+       - No text or order modified
+       =========================== */
+
+    const QUESTIONS=[{title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
+      {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
+      {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas por dia no automático, toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}];
+    const quiz=document.getElementById("quiz"); let step=0,xp=0,lvl=1;
     function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
-    function renderQuiz(){quiz.innerHTML="";QUESTIONS.forEach((q,i)=>{const s=document.createElement("section");s.dataset.step=i;s.className=i===0?"":"hidden";s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3><p style="text-align:center;margin:14px 0 20px">${q.q}</p><div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;quiz.appendChild(s);});}
-
-    document.getElementById("start").onclick=()=>{playSound();document.getElementById("intro").classList.add("hidden");document.getElementById("analise").classList.remove("hidden");};
-
+    function renderQuiz(){quiz.innerHTML="";QUESTIONS.forEach((q,i)=>{const s=document.createElement("section");s.dataset.step=i;s.className=i===0?"":"hidden";s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3>
+      <p style="text-align:center;margin:14px 0 20px">${q.q}</p>
+      <div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;quiz.appendChild(s);});}
+    document.getElementById("start").onclick=()=>{document.getElementById("intro").classList.add("hidden");document.getElementById("analise").classList.remove("hidden");};
     document.addEventListener("click",e=>{
-      if(e.target.tagName==="BUTTON"||e.target.tagName==="A"){playSound();}
-      if(e.target.id==="start-analise"){let bar=document.getElementById("progress-bar"),msg=document.getElementById("analise-msg"),percent=document.getElementById("progress-text");let w=0;const mensagens=["Escaneando padrões...","Detectando gatilhos ocultos...","Analisando perfil...","Decifrando pontos cegos...","Preparando relatório final..."];let etapa=0;msg.textContent=mensagens[etapa];percent.textContent="0%";let interval=setInterval(()=>{if(w>=100){clearInterval(interval);msg.textContent="✅ Análise concluída!";percent.textContent="100%";setTimeout(()=>{document.getElementById("analise").classList.add("hidden");quiz.classList.remove("hidden");step=0;renderQuiz();},1000);}else{w+=5;bar.style.width=w+"%";percent.textContent=w+"%";if(w%20===0&&etapa<mensagens.length-1){etapa++;msg.textContent=mensagens[etapa];}}},150);}
-      if(e.target.classList.contains("answer")&&e.target.closest("#quiz")){addXP(50);quiz.children[step].classList.add("hidden");step++;if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}}
+      if(e.target.id==="start-analise"){let bar=document.getElementById("progress-bar");let msg=document.getElementById("analise-msg");let percent=document.getElementById("progress-text");let w=0;const mensagens=["Escaneando padrões...","Detectando gatilhos ocultos...","Analisando perfil...","Decifrando pontos cegos...","Preparando relatório final..."];let etapa=0;msg.textContent=mensagens[etapa];percent.textContent="0%";let interval=setInterval(()=>{if(w>=100){clearInterval(interval);msg.textContent="✅ Análise concluída!";percent.textContent="100%";setTimeout(()=>{document.getElementById("analise").classList.add("hidden");quiz.classList.remove("hidden");step=0;renderQuiz();},1000);} else {w+=5;bar.style.width=w+"%";percent.textContent=w+"%";if(w%20===0&&etapa<mensagens.length-1){etapa++;msg.textContent=mensagens[etapa];}}},150);}
+      if(e.target.classList.contains("answer") && e.target.closest("#quiz")){addXP(50);quiz.children[step].classList.add("hidden");step++;if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}}
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");}
       if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirmacao1").classList.remove("hidden");}
-      if(e.target.closest("#confirmacao1")&&e.target.classList.contains("answer")){document.getElementById("confirmacao1").classList.add("hidden");document.getElementById("confirmacao2").classList.remove("hidden");}
-      if(e.target.closest("#confirmacao2")&&e.target.classList.contains("answer")){document.getElementById("confirmacao2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
+      if(e.target.closest("#confirmacao1") && e.target.classList.contains("answer")){document.getElementById("confirmacao1").classList.add("hidden");document.getElementById("confirmacao2").classList.remove("hidden");}
+      if(e.target.closest("#confirmacao2") && e.target.classList.contains("answer")){document.getElementById("confirmacao2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
       if(e.target.id==="go-arquivo"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("arquivo").classList.remove("hidden");}
       if(e.target.id==="go-oferta"){document.getElementById("arquivo").classList.add("hidden");document.getElementById("oferta-final").classList.remove("hidden");}
       if(e.target.id==="ritual"){document.getElementById("oferta-final").classList.add("hidden");document.getElementById("rendicao").classList.remove("hidden");}
     });
-
-    // Matrix background
     const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let W,H,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
     function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;cols=Math.floor(W/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
     function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>H&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
