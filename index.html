@@ -27,19 +27,8 @@
   </style>
 </head>
 <body>
-  <!-- Áudio de suspense -->
+  <!-- Áudio suspense -->
   <audio id="bg-audio" src="https://cdn.pixabay.com/download/audio/2023/01/20/audio_9a2f6c3f1e.mp3?filename=evil-laugh-140130.mp3" preload="auto"></audio>
-  <script>
-    const audio = document.getElementById('bg-audio');
-    audio.volume = 0.3;
-    function startAudio() {
-      audio.play().catch(()=>{});
-      document.removeEventListener("click", startAudio);
-      document.removeEventListener("touchstart", startAudio);
-    }
-    document.addEventListener("click", startAudio);
-    document.addEventListener("touchstart", startAudio);
-  </script>
 
   <canvas id="matrix"></canvas>
   <div class="hud"><span id="xp">0 XP</span> | <span id="lvl">LVL 1</span></div>
@@ -60,9 +49,7 @@
       <p id="analise-msg" style="color:#ffb3c1; margin-bottom:12px;">Escaneando padrões comportamentais...</p>
       <div style="background:#111; border:1px solid var(--neon2); border-radius:12px; overflow:hidden; margin:10px auto; width:90%; max-width:500px; position:relative;">
         <div id="progress-bar" style="background:var(--neon); height:20px; width:0%; transition:width 0.3s;"></div>
-        <span id="progress-text" style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-size:14px; font-weight:900; color:#000;">
-          0%
-        </span>
+        <span id="progress-text" style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-size:14px; font-weight:900; color:#000;">0%</span>
       </div>
       <button id="start-analise" class="btn" style="margin-top:28px;">INICIAR ANÁLISE PSICOLÓGICA</button>
     </section>
@@ -254,11 +241,45 @@
   </div>
 
   <script>
-    // Aqui entra TODO o JS já validado das etapas, quiz, XP/LVL e matrix
-    // (mantém exatamente como no seu index anterior, sem alterações)
+    // Áudio suspense destravado no primeiro clique
+    const bgAudio=document.getElementById("bg-audio");
+    bgAudio.volume=0.3;
+    function startAudio(){
+      bgAudio.play().catch(()=>{});
+      document.removeEventListener("click",startAudio);
+      document.removeEventListener("touchstart",startAudio);
+    }
+    document.addEventListener("click",startAudio);
+    document.addEventListener("touchstart",startAudio);
+
+    // JS das etapas, quiz, XP/LVL, matrix
+    const QUESTIONS=[{title:"DIAGNÓSTICO PSICOLÓGICO - 1/4",q:"Quantas vezes você já sentiu que fracassou tentando vender?",a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},{title:"DIAGNÓSTICO PSICOLÓGICO - 2/4",q:"O que você sente quando vê pessoas comuns faturando mais do que você?",a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},{title:"DIAGNÓSTICO PSICOLÓGICO - 3/4",q:"Você prefere manipular o jogo ou ser manipulado por ele?",a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},{title:"DIAGNÓSTICO PSICOLÓGICO - 4/4",q:"Você está pronto para entrar no sistema e nunca mais sair?",a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},{title:"MICRO-COMPROMETIMENTO - 1/2",q:"Você deixaria a IA rodar ofertas de Low Ticket para você?",a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},{title:"MICRO-COMPROMETIMENTO - 2/2",q:"Se pudesse escalar dezenas de vendas por dia no automático, toparia liberar o sistema agora?",a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}];
+    const quiz=document.getElementById("quiz");let step=0,xp=0,lvl=1;
+    function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
+    function renderQuiz(){quiz.innerHTML="";QUESTIONS.forEach((q,i)=>{const s=document.createElement("section");s.dataset.step=i;s.className=i===0?"":"hidden";s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3><p style="text-align:center;margin:14px 0 20px">${q.q}</p><div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;quiz.appendChild(s);});}
+    document.getElementById("start").onclick=()=>{document.getElementById("intro").classList.add("hidden");document.getElementById("analise").classList.remove("hidden");};
+    document.addEventListener("click",e=>{
+      if(e.target.id==="start-analise"){let bar=document.getElementById("progress-bar"),msg=document.getElementById("analise-msg"),percent=document.getElementById("progress-text");let w=0;const mensagens=["Escaneando padrões...","Detectando gatilhos ocultos...","Analisando perfil...","Decifrando pontos cegos...","Preparando relatório final..."];let etapa=0;msg.textContent=mensagens[etapa];percent.textContent="0%";let interval=setInterval(()=>{if(w>=100){clearInterval(interval);msg.textContent="✅ Análise concluída!";percent.textContent="100%";setTimeout(()=>{document.getElementById("analise").classList.add("hidden");quiz.classList.remove("hidden");step=0;renderQuiz();},1000);}else{w+=5;bar.style.width=w+"%";percent.textContent=w+"%";if(w%20===0&&etapa<mensagens.length-1){etapa++;msg.textContent=mensagens[etapa];}}},150);}
+      if(e.target.classList.contains("answer")&&e.target.closest("#quiz")){addXP(50);quiz.children[step].classList.add("hidden");step++;if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}}
+      if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
+      if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
+      if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");}
+      if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirmacao1").classList.remove("hidden");}
+      if(e.target.closest("#confirmacao1")&&e.target.classList.contains("answer")){document.getElementById("confirmacao1").classList.add("hidden");document.getElementById("confirmacao2").classList.remove("hidden");}
+      if(e.target.closest("#confirmacao2")&&e.target.classList.contains("answer")){document.getElementById("confirmacao2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
+      if(e.target.id==="go-arquivo"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("arquivo").classList.remove("hidden");}
+      if(e.target.id==="go-oferta"){document.getElementById("arquivo").classList.add("hidden");document.getElementById("oferta-final").classList.remove("hidden");}
+      if(e.target.id==="ritual"){document.getElementById("oferta-final").classList.add("hidden");document.getElementById("rendicao").classList.remove("hidden");}
+    });
+
+    // Matrix background
+    const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let W,H,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
+    function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;cols=Math.floor(W/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
+    function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>H&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
   </script>
 </body>
 </html>
+
 
 
 
