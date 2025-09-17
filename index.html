@@ -24,27 +24,6 @@
     .feature{margin:12px 0;padding:14px;border:1px solid var(--neon2);border-radius:12px;text-align:center;}
     .hidden{display:none!important}
     blockquote{border:1px solid var(--neon2);border-radius:12px;padding:18px;margin:16px 0;font-style:italic;color:#ffb3c1;}
-
-    /* Ripple vermelho neon */
-    .ripple {
-      position: relative;
-      overflow: hidden;
-    }
-    .ripple::after {
-      content:"";
-      position:absolute;
-      border-radius:50%;
-      background:rgba(255,43,77,0.5);
-      width:10px; height:10px;
-      transform:scale(0);
-      animation:ripple 0.6s linear;
-      pointer-events:none;
-      top:var(--ripple-y);
-      left:var(--ripple-x);
-    }
-    @keyframes ripple {
-      to { transform:scale(25); opacity:0; }
-    }
   </style>
 </head>
 <body>
@@ -233,7 +212,7 @@
       <p style="text-align:center; color:#ff6666; font-weight:700;">⚠️ Oferta restrita. O acesso será cortado em poucas horas.</p>
       <p style="text-align:center; margin:20px 0; color:#fff;">🔴 Ao ativar, você renuncia à mediocridade, entra no oculto e executa no caos.</p>
       <div style="text-align:center; margin-top:28px;">
-        <a href="https://go.pepperpay.com.br/8bvil?affh=tqwlg1pwgt" class="btn-cta">🟩 QUERO ATIVAR O PROTOCOLO AGORA</a>
+        <a href="https://go.pepperpay.com.br/8bvil?affh=tqwlg1pwgt" class="btn-cta" target="_blank">🟩 QUERO ATIVAR O PROTOCOLO AGORA</a>
       </div>
       <div style="text-align:center; margin-top:18px;">
         <button type="button" class="answer" id="ritual">💀 Prefiro continuar vendendo como um fraco</button>
@@ -255,57 +234,54 @@
         ⚠️ O sistema ainda está aberto, mas por pouco tempo.
       </p>
       <div style="text-align:center; margin-top:28px;">
-        <a href="https://go.pepperpay.com.br/8bvil?affh=tqwlg1pwgt" class="btn">🔥 RECONHEÇO MEU ERRO. QUERO ATIVAR AGORA</a>
+        <a href="https://go.pepperpay.com.br/8bvil?affh=tqwlg1pwgt" class="btn" target="_blank">🔥 RECONHEÇO MEU ERRO. QUERO ATIVAR AGORA</a>
       </div>
     </section>
   </div>
 
   <script>
-    const clickSound=new Audio("https://www.myinstants.com/media/sounds/cash-register-cha-ching.mp3");
-    const QUESTIONS=[{title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
-      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4", q:"Você está pronto para entrar no sistema e nunca mais sair?", a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
-      {title:"MICRO-COMPROMETIMENTO - 1/2", q:"Você deixaria a IA rodar ofertas de Low Ticket para você?", a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
-      {title:"MICRO-COMPROMETIMENTO - 2/2", q:"Se pudesse escalar dezenas de vendas por dia no automático, toparia liberar o sistema agora?", a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}];
-    const quiz=document.getElementById("quiz"); let step=0,xp=0,lvl=1;
+    // 🔊 Som hacker forte
+    const clickSound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-changing-tab-206.wav");
+    function playSound(){try{clickSound.currentTime=0;clickSound.play();}catch(e){}}
+
+    const QUESTIONS=[
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 1/4",q:"Quantas vezes você já sentiu que fracassou tentando vender?",a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4",q:"O que você sente quando vê pessoas comuns faturando mais do que você?",a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4",q:"Você prefere manipular o jogo ou ser manipulado por ele?",a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
+      {title:"DIAGNÓSTICO PSICOLÓGICO - 4/4",q:"Você está pronto para entrar no sistema e nunca mais sair?",a:["Ainda tenho dúvidas","Quero experimentar","Estou pronto para desaparecer no Black","Não existe volta, eu escolho o Sistema"]},
+      {title:"MICRO-COMPROMETIMENTO - 1/2",q:"Você deixaria a IA rodar ofertas de Low Ticket para você?",a:["Jamais confiaria nisso","Talvez funcione, mas tenho dúvidas","Provavelmente sim, quero testar","Sem dúvida, quero que a IA faça por mim"]},
+      {title:"MICRO-COMPROMETIMENTO - 2/2",q:"Se pudesse escalar dezenas de vendas por dia no automático, toparia liberar o sistema agora?",a:["Não estou pronto","Talvez mais tarde","Sim, quero tentar","Quero liberar agora"]}
+    ];
+    const quiz=document.getElementById("quiz");let step=0,xp=0,lvl=1;
     function addXP(n){xp+=n;if(xp>=lvl*100){lvl++;}document.getElementById("xp").textContent=xp+" XP";document.getElementById("lvl").textContent="LVL "+lvl;}
-    function renderQuiz(){quiz.innerHTML="";QUESTIONS.forEach((q,i)=>{const s=document.createElement("section");s.dataset.step=i;s.className=i===0?"":"hidden";s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3>
-      <p style="text-align:center;margin:14px 0 20px">${q.q}</p>
-      <div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;quiz.appendChild(s);});}
-    document.getElementById("start").onclick=()=>{document.getElementById("intro").classList.add("hidden");document.getElementById("analise").classList.remove("hidden");};
+    function renderQuiz(){quiz.innerHTML="";QUESTIONS.forEach((q,i)=>{const s=document.createElement("section");s.dataset.step=i;s.className=i===0?"":"hidden";s.innerHTML=`<h3 style="text-align:center;color:var(--neon);">${q.title}</h3><p style="text-align:center;margin:14px 0 20px">${q.q}</p><div class="answers">${q.a.map(opt=>`<button type="button" class="answer">${opt}</button>`).join("")}</div>`;quiz.appendChild(s);});}
+
+    document.getElementById("start").onclick=()=>{playSound();document.getElementById("intro").classList.add("hidden");document.getElementById("analise").classList.remove("hidden");};
+
     document.addEventListener("click",e=>{
-      if(e.target.id==="start-analise"){let bar=document.getElementById("progress-bar");let msg=document.getElementById("analise-msg");let percent=document.getElementById("progress-text");let w=0;const mensagens=["Escaneando padrões...","Detectando gatilhos ocultos...","Analisando perfil...","Decifrando pontos cegos...","Preparando relatório final..."];let etapa=0;msg.textContent=mensagens[etapa];percent.textContent="0%";let interval=setInterval(()=>{if(w>=100){clearInterval(interval);msg.textContent="✅ Análise concluída!";percent.textContent="100%";setTimeout(()=>{document.getElementById("analise").classList.add("hidden");quiz.classList.remove("hidden");step=0;renderQuiz();},1000);} else {w+=5;bar.style.width=w+"%";percent.textContent=w+"%";if(w%20===0&&etapa<mensagens.length-1){etapa++;msg.textContent=mensagens[etapa];}}},150);}
-      if(e.target.classList.contains("answer") && e.target.closest("#quiz")){clickSound.play();addXP(50);quiz.children[step].classList.add("hidden");step++;if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}}
+      if(e.target.tagName==="BUTTON"||e.target.tagName==="A"){playSound();}
+      if(e.target.id==="start-analise"){let bar=document.getElementById("progress-bar"),msg=document.getElementById("analise-msg"),percent=document.getElementById("progress-text");let w=0;const mensagens=["Escaneando padrões...","Detectando gatilhos ocultos...","Analisando perfil...","Decifrando pontos cegos...","Preparando relatório final..."];let etapa=0;msg.textContent=mensagens[etapa];percent.textContent="0%";let interval=setInterval(()=>{if(w>=100){clearInterval(interval);msg.textContent="✅ Análise concluída!";percent.textContent="100%";setTimeout(()=>{document.getElementById("analise").classList.add("hidden");quiz.classList.remove("hidden");step=0;renderQuiz();},1000);}else{w+=5;bar.style.width=w+"%";percent.textContent=w+"%";if(w%20===0&&etapa<mensagens.length-1){etapa++;msg.textContent=mensagens[etapa];}}},150);}
+      if(e.target.classList.contains("answer")&&e.target.closest("#quiz")){addXP(50);quiz.children[step].classList.add("hidden");step++;if(step<QUESTIONS.length){quiz.children[step].classList.remove("hidden");}else{quiz.classList.add("hidden");document.getElementById("product").classList.remove("hidden");}}
       if(e.target.id==="continue"){document.getElementById("product").classList.add("hidden");document.getElementById("bonus").classList.remove("hidden");}
       if(e.target.id==="continue-elite"){document.getElementById("bonus").classList.add("hidden");document.getElementById("elite").classList.remove("hidden");}
       if(e.target.id==="sou-black"){document.getElementById("elite").classList.add("hidden");document.getElementById("depoimentos").classList.remove("hidden");}
       if(e.target.id==="continuar-depoimentos"){document.getElementById("depoimentos").classList.add("hidden");document.getElementById("confirmacao1").classList.remove("hidden");}
-      if(e.target.closest("#confirmacao1") && e.target.classList.contains("answer")){document.getElementById("confirmacao1").classList.add("hidden");document.getElementById("confirmacao2").classList.remove("hidden");}
-      if(e.target.closest("#confirmacao2") && e.target.classList.contains("answer")){document.getElementById("confirmacao2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
+      if(e.target.closest("#confirmacao1")&&e.target.classList.contains("answer")){document.getElementById("confirmacao1").classList.add("hidden");document.getElementById("confirmacao2").classList.remove("hidden");}
+      if(e.target.closest("#confirmacao2")&&e.target.classList.contains("answer")){document.getElementById("confirmacao2").classList.add("hidden");document.getElementById("lowticket").classList.remove("hidden");}
       if(e.target.id==="go-arquivo"){document.getElementById("lowticket").classList.add("hidden");document.getElementById("arquivo").classList.remove("hidden");}
       if(e.target.id==="go-oferta"){document.getElementById("arquivo").classList.add("hidden");document.getElementById("oferta-final").classList.remove("hidden");}
       if(e.target.id==="ritual"){document.getElementById("oferta-final").classList.add("hidden");document.getElementById("rendicao").classList.remove("hidden");}
-
-      /* 🔊 Som + ripple em qualquer clique */
-      if(["P","H1","H2","H3","BUTTON","A"].includes(e.target.tagName)){
-        clickSound.currentTime=0; clickSound.play();
-        const rect=e.target.getBoundingClientRect();
-        const x=e.clientX-rect.left; const y=e.clientY-rect.top;
-        e.target.style.setProperty("--ripple-x",x+"px");
-        e.target.style.setProperty("--ripple-y",y+"px");
-        e.target.classList.add("ripple");
-        setTimeout(()=> e.target.classList.remove("ripple"),600);
-      }
     });
 
-    /* Matrix */
+    // Matrix background
     const canvas=document.getElementById("matrix"),ctx=canvas.getContext("2d");let W,H,cols,drops;const fontSize=16;const glyphs="アカサタナハマヤラワ0123456789ZXCVBNM";
     function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;cols=Math.floor(W/fontSize);drops=Array(cols).fill(1);}window.addEventListener("resize",resize);resize();
     function draw(){ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#ff1a40";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){const text=glyphs[Math.floor(Math.random()*glyphs.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>H&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
   </script>
 </body>
 </html>
+
+
 
 
 
