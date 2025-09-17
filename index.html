@@ -27,6 +27,36 @@
   </style>
 </head>
 <body>
+  <!-- Áudio de suspense (inserido conforme solicitado) -->
+  <!-- autoplay + preload, volume será ajustado a 0.3 via JS; não faz loop -->
+  <audio id="bg-audio" src="https://cdn.pixabay.com/download/audio/2023/01/20/audio_9a2f6c3f1e.mp3?filename=evil-laugh-140130.mp3" preload="auto" autoplay></audio>
+  <script>
+    (function(){
+      const audio = document.getElementById('bg-audio');
+      if (audio) {
+        try { audio.volume = 0.3; } catch(e){}
+        // tenta tocar imediatamente; se bloqueado, toca no primeiro gesto do usuário
+        function tryPlay() {
+          audio.play().catch(()=> {
+            const unlock = function() {
+              audio.play().catch(()=>{/*ignore*/});
+              document.removeEventListener('click', unlock);
+              document.removeEventListener('touchstart', unlock);
+            };
+            document.addEventListener('click', unlock, {passive:true});
+            document.addEventListener('touchstart', unlock, {passive:true});
+          });
+        }
+        // se a página já carregou, tenta agora; senão espera load
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          tryPlay();
+        } else {
+          window.addEventListener('load', tryPlay);
+        }
+      }
+    })();
+  </script>
+
   <canvas id="matrix"></canvas>
   <div class="hud"><span id="xp">0 XP</span> | <span id="lvl">LVL 1</span></div>
 
@@ -241,16 +271,12 @@
 
   <script>
     /* ===========================
-       Som: desbloqueio + playback robusto
-       - Não mexi em nenhum texto/ordem (apenas script adicionado).
-       - Estratégia: inicializar AudioContext no primeiro gesto do usuário,
-         depois tocar BufferSource a cada clique (permite overlap).
+       Som: clique (WebAudio) + behavior original do quiz
+       Não alterei textos nem ordem.
        =========================== */
 
-    // URL do efeito sonoro hacker (pode trocar depois se quiser)
+    // efeito de clique (WebAudio) - mantido para reforçar feedback sonoro em interações
     const SOUND_URL = "https://assets.mixkit.co/sfx/preview/mixkit-game-interface-small-2433.mp3";
-
-    // Áudio via WebAudio (melhor para overlap e controle)
     let audioCtx = null;
     let clickBuffer = null;
     let audioReady = false;
@@ -261,13 +287,11 @@
       initInProgress = true;
       try {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        // fetch audio data
         const res = await fetch(SOUND_URL);
         const arrayBuffer = await res.arrayBuffer();
         clickBuffer = await audioCtx.decodeAudioData(arrayBuffer);
         audioReady = true;
       } catch (err) {
-        // fallback: mark not ready (we'll try HTMLAudio fallback)
         console.warn("initAudioOnce error:", err);
         audioReady = false;
       } finally {
@@ -275,18 +299,16 @@
       }
     }
 
-    // Play the sound (uses WebAudio BufferSource so multiple playbacks overlap)
     function playClickSound() {
       if (audioCtx && clickBuffer) {
         try {
-          // resume context in case it's suspended (mobile)
           if (audioCtx.state === "suspended") {
             audioCtx.resume().catch(()=>{/*ignore*/});
           }
           const src = audioCtx.createBufferSource();
           src.buffer = clickBuffer;
           const gain = audioCtx.createGain();
-          gain.gain.value = 1.0; // forte
+          gain.gain.value = 1.0;
           src.connect(gain);
           gain.connect(audioCtx.destination);
           src.start(0);
@@ -295,33 +317,20 @@
           console.warn("WebAudio play error:", e);
         }
       }
-
-      // fallback to HTMLAudio if WebAudio not available
       try {
         const a = new Audio(SOUND_URL);
         a.volume = 1.0;
         a.play().catch(()=>{/*ignore*/});
-      } catch (e) {
-        // silent fail
-      }
+      } catch (e) {}
     }
 
-    // On the first user gesture we initialize the audio so browsers allow playback.
-    // Use pointerdown/touchstart/click to be robust.
     function unlockAudioAndMaybePlay(e) {
-      // initialize once
       if (!audioReady && !initInProgress) {
-        initAudioOnce().then(()=> {
-          // after initializing, play for the gesture that unlocked if desired
-          // but only if event comes from a user-initiated clickable element
-        });
+        initAudioOnce().then(()=> {});
       }
-      // we still want to play on the first gesture (some browsers allow immediate play if triggered by event)
-      // Play sound for clicks on interactive elements (buttons, links, answers, headings, paragraphs)
-      const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : "";
-      const clickable = ["BUTTON","A","P","H1","H2","H3","SPAN","LI","DIV"].includes(tag) || e.target.classList && (e.target.classList.contains("answer") || e.target.classList.contains("btn") || e.target.classList.contains("btn-cta"));
+      const tag = (e.target && e.target.tagName) ? e.target.tagName : "";
+      const clickable = ["BUTTON","A","P","H1","H2","H3","SPAN","LI","DIV"].includes(tag) || (e.target.classList && (e.target.classList.contains("answer") || e.target.classList.contains("btn") || e.target.classList.contains("btn-cta")));
       if (clickable) {
-        // ensure audio context resumed if it's suspended
         if (audioCtx && audioCtx.state === "suspended") {
           audioCtx.resume().catch(()=>{/*ignore*/});
         }
@@ -329,11 +338,9 @@
       }
     }
 
-    // Attach short-lived listeners that run once to initialize audio
     function attachInitialUnlockListeners() {
       const unlock = (e) => {
         unlockAudioAndMaybePlay(e);
-        // remove the initial listeners after first gesture(s)
         document.removeEventListener("pointerdown", unlock);
         document.removeEventListener("touchstart", unlock);
         document.removeEventListener("click", unlock);
@@ -342,36 +349,27 @@
       document.addEventListener("touchstart", unlock, {passive:true});
       document.addEventListener("click", unlock, {passive:true});
     }
-
-    // Call attach on load so first gesture unlocks audio
     attachInitialUnlockListeners();
 
-    // Global click handler: play sound on all relevant clicks (buttons, links, answers, and clickable text)
     document.addEventListener("click", function(e) {
       try {
         const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : "";
         const isInteractive = ["BUTTON","A","INPUT","LABEL","SELECT","TEXTAREA"].includes(tag) ||
                               (e.target.classList && (e.target.classList.contains("answer") || e.target.classList.contains("btn") || e.target.classList.contains("btn-cta")));
-        // also consider clickable paragraphs or headings (user asked "efeito em qualquer texto")
         const clickableText = ["P","H1","H2","H3","SPAN","LI","DIV"].includes(tag) && e.target.onclick;
         if (isInteractive || clickableText) {
           playClickSound();
         } else {
-          // Also play for answers inside quiz (they have class .answer) even when not a BUTTON element
           if (e.target.classList && e.target.classList.contains("answer")) {
             playClickSound();
           }
         }
-      } catch (err) {
-        // no-op
-      }
+      } catch (err) {}
     }, true);
 
     /* ===========================
-       Remainder of original behavior (quiz flow + matrix)
-       - No text or order modified
+       Quiz flow + UI logic (mantido)
        =========================== */
-
     const QUESTIONS=[{title:"DIAGNÓSTICO PSICOLÓGICO - 1/4", q:"Quantas vezes você já sentiu que fracassou tentando vender?", a:["Nunca fracassei","Algumas vezes, mas insisto","Perdi as contas","Fracasso virou rotina"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 2/4", q:"O que você sente quando vê pessoas comuns faturando mais do que você?", a:["Não me importo","Inveja silenciosa","Raiva que me corrói","Ódio puro, quero ultrapassar"]},
       {title:"DIAGNÓSTICO PSICOLÓGICO - 3/4", q:"Você prefere manipular o jogo ou ser manipulado por ele?", a:["Não quero nenhum dos dois","Ser manipulado é mais fácil","Manipular com inteligência","Dominar completamente"]},
@@ -403,6 +401,7 @@
   </script>
 </body>
 </html>
+
 
 
 
